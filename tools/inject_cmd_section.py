@@ -110,8 +110,10 @@ def extract_doctors(doc):
 
 def build_section(docs, disease, fomo_note):
     max_fee = max((d.get("fee") or 0) for d in docs) if docs else 0
-    title = "Consult a {} Specialist for as Low as Rs. {}".format(disease, f"{max_fee:,}") if max_fee \
-            else "Consult a {} Specialist Online".format(disease)
+    # disease="" (or "-") -> generic "Consult a Specialist ..."; otherwise "Consult a <Disease> Specialist ..."
+    label = (disease.strip() + " Specialist") if (disease and disease.strip() and disease.strip() != "-") else "Specialist"
+    title = "Consult a {} for as Low as Rs. {}".format(label, f"{max_fee:,}") if max_fee \
+            else "Consult a {} Online".format(label)
     cards = ""
     for d in docs:
         prof, book = esc(d["profile"]), esc(d.get("book") or d["profile"])

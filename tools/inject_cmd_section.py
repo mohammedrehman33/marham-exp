@@ -158,7 +158,8 @@ def main():
     ap.add_argument("--fomo", default="Book today — limited-time offer, ends soon!")
     a = ap.parse_args()
 
-    doc = open(a.inp, encoding="utf-8").read()
+    doc = open(a.inp, encoding="utf-8", newline="").read()  # newline="" preserves original CRLF/LF
+    nl = "\r\n" if "\r\n" in doc else "\n"
     disease = a.disease or guess_disease(doc)
 
     if a.doctors:
@@ -172,6 +173,7 @@ def main():
         sys.exit("ERROR: no doctors found/provided. Use --doctors doctors.json")
 
     section, title = build_section(docs, disease, a.fomo)
+    section = section.replace("\n", nl)  # match the page's own line endings
 
     # Idempotent: replace existing section if present.
     if CMD_START in doc and CMD_END in doc:
@@ -184,7 +186,7 @@ def main():
         doc = doc.replace(anchor, section + anchor, 1)
         placed = f"inserted-before:{anchor.strip()}"
 
-    open(a.out, "w", encoding="utf-8").write(doc)
+    open(a.out, "w", encoding="utf-8", newline="").write(doc)  # newline="" keeps bytes intact
     print(f"OK  disease={disease!r}  cards={len(docs)}  title={title!r}  {placed}")
 
 if __name__ == "__main__":

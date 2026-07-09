@@ -5021,7 +5021,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
 			#callMyDoctors .cmd-grid{ display:flex; gap:16px; overflow-x:auto; padding-bottom:6px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
 			#callMyDoctors .cmd-card{ border:1px solid #E7EAEE; border-radius:12px; padding:16px; background:#fafafa; display:flex; flex-direction:column; flex:0 0 320px; max-width:320px; scroll-snap-align:start; }
 			#callMyDoctors .cmd-top{ display:flex; align-items:center; gap:12px; }
-			#callMyDoctors .cmd-photo{ width:58px; height:58px; border-radius:50%; object-fit:cover; flex-shrink:0; border:2px solid #2BB3A3; padding:2px; background:#fff; }
+			#callMyDoctors .cmd-photo{ width:58px !important; height:58px !important; min-width:58px; min-height:58px; max-width:58px; max-height:58px; aspect-ratio:1 / 1; border-radius:50%; object-fit:cover !important; object-position:center; flex-shrink:0; border:2px solid #2BB3A3; padding:2px; background:#fff; box-sizing:border-box; }
 			#callMyDoctors .cmd-name{ margin:0 0 4px; font-size:15px; line-height:1.2; }
 			#callMyDoctors .cmd-name a{ color:#136c8f; text-decoration:none; font-weight:600; }
 			#callMyDoctors .cmd-avail{ display:flex; align-items:center; gap:6px; font-size:13px; color:#1aa260; font-weight:500; margin-bottom:4px; }

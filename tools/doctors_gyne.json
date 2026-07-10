@@ -6,7 +6,7 @@
   "reviews": "1041",
   "exp": "12",
   "fee": 1500,
-  "book": "https://www.marham.pk/online-consultation/gynecologist/peshawar/dr-musarrat-qureshi-30925"
+  "book": "https://www.marham.pk/online-consultation/request?id=79&d_id=30925"
  },
  {
   "name": "Dr. Salma Ayaz",
@@ -15,7 +15,7 @@
   "reviews": "880",
   "exp": "8",
   "fee": 800,
-  "book": "https://www.marham.pk/online-consultation/gynecologist/karachi/dr-salma-ayaz-62937"
+  "book": "https://www.marham.pk/online-consultation/request?id=79&d_id=62937"
  },
  {
   "name": "Asst. Prof. Dr. Sajida Imran",
@@ -24,6 +24,6 @@
   "reviews": "336",
   "exp": "22",
   "fee": 1200,
-  "book": "https://www.marham.pk/online-consultation/gynecologist/karachi/asst-prof-dr-asist-dr-sajida-imran-9610"
+  "book": "https://www.marham.pk/online-consultation/request?id=79&d_id=9610"
  }
 ]

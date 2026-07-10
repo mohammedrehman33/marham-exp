@@ -4,15 +4,17 @@ Adds the `#callMyDoctors` "Consult a Specialist for as Low as Rs. X" section
 (with the 30% OFF lab-test FOMO subtitle, circular photos, card grid) to any
 Marham disease/listing page.
 
-## Two separate flows (share one engine, different doctor lists)
+## Separate flows (share one engine, different doctor lists)
 
 | Flow | Script | Doctors file |
 |------|--------|--------------|
 | General | `tools/apply_general.py` | `tools/doctors_general.json` (Waqas / Salman / Usama) |
 | Gyne    | `tools/apply_gyne.py`    | `tools/doctors_gyne.json` (gyne doctors) |
+| Psychologist | `tools/apply_psychologist.py` | `tools/doctors_psychologist.json` (psychology doctors) |
 
-Both are thin wrappers over the shared engine `tools/inject_cmd_section.py`,
-so changing one flow never affects the other.
+All are thin wrappers over the shared engine `tools/inject_cmd_section.py`,
+so changing one flow never affects the others. To add a new specialty flow,
+copy a doctors JSON + an `apply_<name>.py` wrapper.
 
 ### General pages
 ```

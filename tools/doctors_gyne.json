@@ -1,5 +1,29 @@
 [
- {"name":"Dr. Musarrat Qureshi","profile":"https://www.marham.pk/online-consultation/gynecologist/peshawar/dr-musarrat-qureshi-30925","photo":"https://staticconnect-new.marham.pk/assets/doctors/30925/dr-musarrat-qureshi-gynecologist-peshawar-60_170X170.webp","reviews":"1041","exp":"12","fee":null,"book":"https://www.marham.pk/online-consultation/gynecologist/peshawar/dr-musarrat-qureshi-30925"},
- {"name":"Dr. Salma Ayaz","profile":"https://www.marham.pk/online-consultation/gynecologist/karachi/dr-salma-ayaz-62937","photo":"https://staticconnect-new.marham.pk/assets/doctors/62937/salma-ayaz-gynecologist-lahore-6_170X170.webp","reviews":"880","exp":"8","fee":null,"book":"https://www.marham.pk/online-consultation/gynecologist/karachi/dr-salma-ayaz-62937"},
- {"name":"Asst. Prof. Dr. Sajida Imran","profile":"https://www.marham.pk/online-consultation/gynecologist/karachi/asst-prof-dr-asist-dr-sajida-imran-9610","photo":"https://staticconnect-new.marham.pk/assets/doctors/9610/dr-sajida-imran-gynecologist-karachi-93_170X170.webp","reviews":"336","exp":"22","fee":null,"book":"https://www.marham.pk/online-consultation/gynecologist/karachi/asst-prof-dr-asist-dr-sajida-imran-9610"}
+ {
+  "name": "Dr. Musarrat Qureshi",
+  "profile": "https://www.marham.pk/online-consultation/gynecologist/peshawar/dr-musarrat-qureshi-30925",
+  "photo": "https://staticconnect-new.marham.pk/assets/doctors/30925/dr-musarrat-qureshi-gynecologist-peshawar-60_170X170.webp",
+  "reviews": "1041",
+  "exp": "12",
+  "fee": 1500,
+  "book": "https://www.marham.pk/online-consultation/gynecologist/peshawar/dr-musarrat-qureshi-30925"
+ },
+ {
+  "name": "Dr. Salma Ayaz",
+  "profile": "https://www.marham.pk/online-consultation/gynecologist/karachi/dr-salma-ayaz-62937",
+  "photo": "https://staticconnect-new.marham.pk/assets/doctors/62937/salma-ayaz-gynecologist-lahore-6_170X170.webp",
+  "reviews": "880",
+  "exp": "8",
+  "fee": 800,
+  "book": "https://www.marham.pk/online-consultation/gynecologist/karachi/dr-salma-ayaz-62937"
+ },
+ {
+  "name": "Asst. Prof. Dr. Sajida Imran",
+  "profile": "https://www.marham.pk/online-consultation/gynecologist/karachi/asst-prof-dr-asist-dr-sajida-imran-9610",
+  "photo": "https://staticconnect-new.marham.pk/assets/doctors/9610/dr-sajida-imran-gynecologist-karachi-93_170X170.webp",
+  "reviews": "336",
+  "exp": "22",
+  "fee": 1200,
+  "book": "https://www.marham.pk/online-consultation/gynecologist/karachi/asst-prof-dr-asist-dr-sajida-imran-9610"
+ }
 ]

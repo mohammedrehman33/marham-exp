@@ -108,11 +108,13 @@ def extract_doctors(doc):
         docs.append(dict(name=name, profile=profile, photo=photo, reviews=reviews, exp=exp, fee=fee, book=book))
     return docs
 
-def build_section(docs, disease, fomo_note):
-    max_fee = max((d.get("fee") or 0) for d in docs) if docs else 0
+def build_section(docs, disease, fomo_note, price=None):
+    # "as Low as Rs. X": X is the LOWEST fee among the cards (or an explicit --price override).
+    fees = [(d.get("fee") or 0) for d in docs if (d.get("fee") or 0) > 0]
+    head_price = price if price else (min(fees) if fees else 0)
     # disease="" (or "-") -> generic "Consult a Specialist ..."; otherwise "Consult a <Disease> Specialist ..."
     label = (disease.strip() + " Specialist") if (disease and disease.strip() and disease.strip() != "-") else "Specialist"
-    title = "Consult a {} for as Low as Rs. {}".format(label, f"{max_fee:,}") if max_fee \
+    title = "Consult a {} for as Low as Rs. {}".format(label, f"{head_price:,}") if head_price \
             else "Consult a {} Online".format(label)
     cards = ""
     for d in docs:
@@ -158,6 +160,7 @@ def main():
     ap.add_argument("--count", type=int, default=3)
     ap.add_argument("--anchor", default="<!--Doctors-->")
     ap.add_argument("--fomo", default="Book today — limited-time offer, ends soon!")
+    ap.add_argument("--price", type=int, default=None, help="force the heading 'as Low as Rs. X' number; default = lowest card fee")
     a = ap.parse_args()
 
     doc = open(a.inp, encoding="utf-8", newline="").read()  # newline="" preserves original CRLF/LF
@@ -174,7 +177,7 @@ def main():
     if not docs:
         sys.exit("ERROR: no doctors found/provided. Use --doctors doctors.json")
 
-    section, title = build_section(docs, disease, a.fomo)
+    section, title = build_section(docs, disease, a.fomo, price=a.price)
     section = section.replace("\n", nl)  # match the page's own line endings
 
     # Idempotent: replace existing section if present.

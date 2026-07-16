@@ -27,25 +27,25 @@ CMD_END   = "<!-- CMD_SECTION_END -->"
 STYLE = '''			<style>
 			/* callMyDoctors - affordable-specialists cards. */
 			#callMyDoctors .cmd-affordable{ background:#ffffff; border:1px solid #E7EAEE; border-radius:16px; padding:24px; box-shadow:5px 5px 16px 5px rgba(0,0,0,0.1); }
-			#callMyDoctors .cmd-title{ margin:0; font-size:22px; font-weight:700; color:#16384a; line-height:1.25; }
-			#callMyDoctors .cmd-sub{ margin:6px 0 20px; font-size:14px; font-weight:500; color:#4a5a68; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-			#callMyDoctors .cmd-fomo{ display:inline-flex; align-items:center; gap:6px; background:#fdecea; color:#d32f2f; font-weight:700; padding:4px 10px; border-radius:6px; font-size:13px; line-height:1.2; }
+			#callMyDoctors .cmd-title{ margin:0; font-size:22px; font-weight:600; color:#16384a; line-height:1.25; }
+			#callMyDoctors .cmd-sub{ margin:6px 0 20px; font-size:14px; font-weight:400; color:#4a5a68; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+			#callMyDoctors .cmd-fomo{ display:inline-flex; align-items:center; gap:6px; background:#fdecea; color:#d32f2f; font-weight:600; padding:4px 10px; border-radius:6px; font-size:13px; line-height:1.2; }
 			#callMyDoctors .cmd-fomo .bolt{ font-size:14px; }
-			#callMyDoctors .cmd-fomo-note{ color:#4a5a68; font-weight:600; }
+			#callMyDoctors .cmd-fomo-note{ color:#4a5a68; font-weight:500; }
 			#callMyDoctors .cmd-grid{ display:flex; gap:16px; overflow-x:auto; padding-bottom:6px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
-			#callMyDoctors .cmd-card{ border:1px solid #E7EAEE; border-radius:12px; padding:16px; background:#fafafa; display:flex; flex-direction:column; flex:0 0 320px; max-width:320px; scroll-snap-align:start; }
+			#callMyDoctors .cmd-card{ border:1px solid #E7EAEE; border-radius:12px; padding:16px; background:#fafafa; display:flex; flex-direction:column; flex:1 1 0; min-width:280px; max-width:none; scroll-snap-align:start; }
 			#callMyDoctors .cmd-top{ display:flex; align-items:center; gap:12px; }
 			#callMyDoctors .cmd-photo{ width:58px !important; height:58px !important; min-width:58px; min-height:58px; max-width:58px; max-height:58px; aspect-ratio:1 / 1; border-radius:50%; object-fit:cover !important; object-position:center; flex-shrink:0; border:2px solid #2BB3A3; padding:2px; background:#fff; box-sizing:border-box; }
 			#callMyDoctors .cmd-name{ margin:0 0 4px; font-size:15px; line-height:1.2; }
-			#callMyDoctors .cmd-name a{ color:#136c8f; text-decoration:none; font-weight:600; }
+			#callMyDoctors .cmd-name a{ color:#136c8f; text-decoration:none; font-weight:500; }
 			#callMyDoctors .cmd-avail{ display:flex; align-items:center; gap:6px; font-size:13px; color:#1aa260; font-weight:500; margin-bottom:4px; }
 			#callMyDoctors .cmd-avail .dot{ width:8px; height:8px; border-radius:50%; background:#1aa260; display:inline-block; flex-shrink:0; }
-			#callMyDoctors .cmd-fee{ font-size:14px; font-weight:700; color:#1b2a3a; }
+			#callMyDoctors .cmd-fee{ font-size:14px; font-weight:600; color:#1b2a3a; }
 			#callMyDoctors .cmd-stats{ display:flex; align-items:center; gap:16px; margin:14px 0; font-size:12px; }
 			#callMyDoctors .cmd-reviews{ color:#b4641d; font-weight:500; display:flex; align-items:center; gap:5px; }
 			#callMyDoctors .cmd-reviews .star{ color:#f5a623; font-size:13px; }
 			#callMyDoctors .cmd-exp{ color:#7a8a99; }
-			#callMyDoctors .cmd-book{ margin-top:auto; display:block; width:100%; background:#084c61; color:#fff; text-align:center; text-decoration:none; font-size:14px; font-weight:600; padding:11px 12px; border-radius:8px; border:1px solid #084c61; line-height:1.2; }
+			#callMyDoctors .cmd-book{ margin-top:auto; display:block; width:100%; background:#084c61; color:#fff; text-align:center; text-decoration:none; font-size:14px; font-weight:500; padding:11px 12px; border-radius:8px; border:1px solid #084c61; line-height:1.2; }
 			#callMyDoctors .cmd-book:hover{ background:#063b4c; color:#fff; }
 			@media (max-width:768px){
 				#callMyDoctors .cmd-affordable{ padding:18px; }

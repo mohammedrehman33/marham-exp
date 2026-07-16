@@ -20,5 +20,7 @@ extra = sys.argv[1:]
 cmd = ["python3", ENGINE, "--doctors", DOCTORS]
 if "--disease" not in extra:
     cmd += ["--disease", "-"]
+if "--badge" not in extra:
+    cmd += ["--badge", "7 دن تک ڈاکٹر سے مفت رہنمائی حاصل کریں"]
 cmd += extra
 sys.exit(subprocess.call(cmd))

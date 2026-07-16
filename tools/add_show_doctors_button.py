@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-add_show_doctors_button.py — add a sticky bottom-left "Show Doctors" pill
-(circled up-arrow + label, #004d71) that appears after scrolling past a
-threshold (default 650px) and smooth-scrolls back to the doctor listing.
-Responsive on mobile and desktop.
+add_show_doctors_button.py — add a sticky bottom-right "Show Doctors" pill
+(circled up-arrow + label, #004d71) that appears once the user scrolls down
+to the `.seo-page-content` div (fallback: --offset px if that div is
+missing) and smooth-scrolls back to the doctor listing. Responsive on
+mobile and desktop.
 
 Usage:
   python3 tools/add_show_doctors_button.py --in PAGE.html --out PAGE.html [--offset 650]
@@ -17,15 +18,15 @@ END = "<!-- MH_SHOWDOC_END -->"
 
 TEMPLATE = START + '''
 <style>
-#mhShowDoc{ position:fixed; left:16px; bottom:20px; z-index:99999; display:inline-flex; align-items:center; gap:10px; background:#004d71; color:#fff; border:none; border-radius:999px; padding:9px 20px 9px 10px; font-size:15px; font-weight:600; line-height:1; cursor:pointer; box-shadow:0 6px 18px rgba(0,20,30,.3); opacity:0; visibility:hidden; transform:translateY(14px); transition:opacity .25s ease, transform .25s ease, visibility .25s; }
+#mhShowDoc{ position:fixed; right:16px; bottom:18px; z-index:99999; display:inline-flex; align-items:center; gap:7px; background:#004d71; color:#fff; border:none; border-radius:999px; padding:6px 14px 6px 7px; font-size:13px; font-weight:500; line-height:1; cursor:pointer; box-shadow:0 4px 14px rgba(0,20,30,.28); opacity:0; visibility:hidden; transform:translateY(14px); transition:opacity .25s ease, transform .25s ease, visibility .25s; }
 #mhShowDoc.show{ opacity:1; visibility:visible; transform:translateY(0); }
 #mhShowDoc:hover{ background:#01608d; }
-#mhShowDoc .mh-arr{ width:30px; height:30px; min-width:30px; border-radius:50%; border:2px solid #fff; display:flex; align-items:center; justify-content:center; box-sizing:border-box; }
-#mhShowDoc .mh-arr svg{ width:14px; height:14px; display:block; }
+#mhShowDoc .mh-arr{ width:22px; height:22px; min-width:22px; border-radius:50%; border:1.5px solid #fff; display:flex; align-items:center; justify-content:center; box-sizing:border-box; }
+#mhShowDoc .mh-arr svg{ width:11px; height:11px; display:block; }
 @media (max-width:768px){
-  #mhShowDoc{ left:12px; bottom:16px; font-size:13px; padding:7px 16px 7px 8px; gap:8px; }
-  #mhShowDoc .mh-arr{ width:26px; height:26px; min-width:26px; }
-  #mhShowDoc .mh-arr svg{ width:12px; height:12px; }
+  #mhShowDoc{ right:12px; bottom:14px; font-size:12px; padding:5px 12px 5px 6px; gap:6px; }
+  #mhShowDoc .mh-arr{ width:20px; height:20px; min-width:20px; }
+  #mhShowDoc .mh-arr svg{ width:10px; height:10px; }
 }
 </style>
 <button id="mhShowDoc" type="button" aria-label="Show Doctors">
@@ -39,9 +40,17 @@ TEMPLATE = START + '''
         var btn=document.getElementById('mhShowDoc');
         if(!btn) return;
         var target=document.getElementById('mhFilters')||document.getElementById('doctor-listing1');
+        var seo=document.querySelector('.seo-page-content');
         function onScroll(){
-            var y=window.pageYOffset||document.documentElement.scrollTop||0;
-            if(y>OFFSET) btn.classList.add('show'); else btn.classList.remove('show');
+            var on;
+            if(seo){
+                // show once the seo-page-content div has entered the viewport
+                on = seo.getBoundingClientRect().top <= window.innerHeight;
+            }else{
+                var y=window.pageYOffset||document.documentElement.scrollTop||0;
+                on = y>OFFSET;
+            }
+            if(on) btn.classList.add('show'); else btn.classList.remove('show');
         }
         window.addEventListener('scroll', onScroll, {passive:true});
         onScroll();

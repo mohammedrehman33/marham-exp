@@ -29,8 +29,10 @@ STYLE = '''			<style>
 			#callMyDoctors .cmd-affordable{ background:#ffffff; border:1px solid #E7EAEE; border-radius:16px; padding:24px; box-shadow:5px 5px 16px 5px rgba(0,0,0,0.1); }
 			#callMyDoctors .cmd-title{ margin:0; font-size:22px; font-weight:600; color:#16384a; line-height:1.25; }
 			#callMyDoctors .cmd-sub{ margin:6px 0 20px; font-size:14px; font-weight:400; color:#4a5a68; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-			#callMyDoctors .cmd-fomo{ display:inline-flex; align-items:center; gap:6px; background:#fdecea; color:#d32f2f; font-weight:600; padding:4px 10px; border-radius:6px; font-size:13px; line-height:1.2; }
-			#callMyDoctors .cmd-fomo .bolt{ font-size:14px; }
+			#callMyDoctors .cmd-fomo{ display:inline-flex; align-items:center; gap:6px; background:#fdecea; color:#d32f2f; font-weight:600; padding:4px 10px; border-radius:6px; font-size:13px; line-height:1.2; position:relative; overflow:hidden; }
+			#callMyDoctors .cmd-fomo .cmd-ico{ width:15px; height:15px; flex-shrink:0; display:inline-block; vertical-align:middle; }
+			#callMyDoctors .cmd-fomo::after{ content:""; position:absolute; top:0; left:-150%; width:60%; height:100%; background:linear-gradient(105deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.8) 50%, rgba(255,255,255,0) 100%); animation:cmdShimmer 2.5s ease-in-out infinite; pointer-events:none; }
+			@keyframes cmdShimmer{ 0%{ left:-150%; } 60%{ left:150%; } 100%{ left:150%; } }
 			#callMyDoctors .cmd-fomo-note{ color:#4a5a68; font-weight:500; }
 			#callMyDoctors .cmd-grid{ display:flex; gap:16px; overflow-x:auto; padding-bottom:6px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
 			#callMyDoctors .cmd-card{ border:1px solid #E7EAEE; border-radius:12px; padding:16px; background:#fafafa; display:flex; flex-direction:column; flex:1 1 0; min-width:280px; max-width:none; scroll-snap-align:start; }
@@ -135,7 +137,7 @@ def build_section(docs, disease, fomo_note, price=None, badge="FLAT 30% OFF on L
                f'''			<div class="container mt-10" id="callMyDoctors">
 				<div class="cmd-affordable" id="cmdPanel">
 					<h2 class="cmd-title" id="cmdTitle">{title}</h2>
-					<p class="cmd-sub"><span class="cmd-fomo" dir="auto"><span class="bolt">⚡</span> {html.escape(badge)}</span> <span class="cmd-fomo-note">{html.escape(fomo_note)}</span></p>
+					<p class="cmd-sub"><span class="cmd-fomo" dir="auto"><svg class="cmd-ico" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg> {html.escape(badge)}</span> <span class="cmd-fomo-note">{html.escape(fomo_note)}</span></p>
 					<div class="cmd-grid" id="cmdGrid">{cards}</div>
 				</div>
 			</div>

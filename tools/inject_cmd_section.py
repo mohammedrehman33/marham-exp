@@ -59,6 +59,21 @@ STYLE = '''			<style>
 
 def esc(u): return (u or "").replace("&", "&amp;")
 
+def slug_of(name):
+    s = re.sub(r'[^a-z0-9]+', '-', (name or "").lower()).strip('-')
+    return s or "doctor"
+
+def add_utm(url, utm, content=None):
+    """Append GA campaign params (utm_source/medium/campaign...) to a URL,
+    plus a per-doctor utm_content. Respects existing query strings."""
+    if not utm or not url or url == "#":
+        return url
+    params = utm.lstrip("?&")
+    if content and "utm_content=" not in params:
+        params += "&utm_content=" + urllib.parse.quote(content)
+    sep = "&" if "?" in url else "?"
+    return url + sep + params
+
 def avatar(initials):
     svg = ("<svg xmlns='http://www.w3.org/2000/svg' width='58' height='58' viewBox='0 0 58 58'>"
            "<rect width='58' height='58' rx='29' fill='#e6f4f5'/>"
@@ -110,7 +125,7 @@ def extract_doctors(doc):
         docs.append(dict(name=name, profile=profile, photo=photo, reviews=reviews, exp=exp, fee=fee, book=book))
     return docs
 
-def build_section(docs, disease, fomo_note, price=None, badge="FLAT 30% OFF on Lab Tests"):
+def build_section(docs, disease, fomo_note, price=None, badge="FLAT 30% OFF on Lab Tests", utm=None):
     # "as Low as Rs. X": X is the LOWEST fee among the cards (or an explicit --price override).
     fees = [(d.get("fee") or 0) for d in docs if (d.get("fee") or 0) > 0]
     head_price = price if price else (min(fees) if fees else 0)
@@ -120,7 +135,8 @@ def build_section(docs, disease, fomo_note, price=None, badge="FLAT 30% OFF on L
             else "Consult a {} Online".format(label)
     cards = ""
     for d in docs:
-        prof, book = esc(d["profile"]), esc(d.get("book") or d["profile"])
+        prof = esc(d["profile"])
+        book = esc(add_utm(d.get("book") or d["profile"], utm, content=slug_of(d["name"])))
         photo = esc(d["photo"]) if d.get("photo") else avatar(initials_of(d["name"]))
         fee = f"Rs. {d['fee']:,}" if d.get("fee") else ""
         rev = f'<span class="cmd-reviews"><span class="star">★</span> {d["reviews"]} Reviews</span>' if d.get("reviews") else ""
@@ -163,6 +179,7 @@ def main():
     ap.add_argument("--anchor", default="<!--Doctors-->")
     ap.add_argument("--fomo", default="Book today — limited-time offer, ends soon!")
     ap.add_argument("--badge", default="FLAT 30% OFF on Lab Tests", help="red highlight badge text (next to the bolt)")
+    ap.add_argument("--utm", default=None, help='GA campaign params for Book CTAs, e.g. "utm_source=X&utm_medium=Y&utm_campaign=Z"; per-doctor utm_content is added automatically')
     ap.add_argument("--price", type=int, default=None, help="force the heading 'as Low as Rs. X' number; default = lowest card fee")
     a = ap.parse_args()
 
@@ -180,7 +197,7 @@ def main():
     if not docs:
         sys.exit("ERROR: no doctors found/provided. Use --doctors doctors.json")
 
-    section, title = build_section(docs, disease, a.fomo, price=a.price, badge=a.badge)
+    section, title = build_section(docs, disease, a.fomo, price=a.price, badge=a.badge, utm=a.utm)
     section = section.replace("\n", nl)  # match the page's own line endings
 
     # Idempotent: replace existing section if present.

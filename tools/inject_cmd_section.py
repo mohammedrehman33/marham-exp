@@ -31,8 +31,8 @@ STYLE = '''			<style>
 			#callMyDoctors .cmd-sub{ margin:6px 0 20px; font-size:14px; font-weight:400; color:#4a5a68; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
 			#callMyDoctors .cmd-fomo{ display:inline-flex; align-items:center; gap:6px; background:#fdecea; color:#d32f2f; font-weight:600; padding:4px 10px; border-radius:6px; font-size:13px; line-height:1.2; position:relative; overflow:hidden; }
 			#callMyDoctors .cmd-fomo .cmd-ico{ width:15px; height:15px; flex-shrink:0; display:inline-block; vertical-align:middle; }
-			#callMyDoctors .cmd-fomo::after{ content:""; position:absolute; top:0; left:-150%; width:60%; height:100%; background:linear-gradient(105deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.8) 50%, rgba(255,255,255,0) 100%); animation:cmdShimmer 2.5s ease-in-out infinite; pointer-events:none; }
-			@keyframes cmdShimmer{ 0%{ left:-150%; } 60%{ left:150%; } 100%{ left:150%; } }
+			#callMyDoctors .cmd-fomo::after{ content:""; position:absolute; top:-20%; bottom:-20%; left:0; width:55%; transform:translateX(-130%) skewX(-18deg); background:linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.35) 30%, rgba(255,255,255,.95) 50%, rgba(255,255,255,.35) 70%, rgba(255,255,255,0) 100%); animation:cmdShimmer 4.5s cubic-bezier(.4,0,.2,1) infinite; pointer-events:none; }
+			@keyframes cmdShimmer{ 0%{ transform:translateX(-130%) skewX(-18deg); } 55%{ transform:translateX(330%) skewX(-18deg); } 100%{ transform:translateX(330%) skewX(-18deg); } }
 			#callMyDoctors .cmd-fomo-note{ color:#4a5a68; font-weight:500; }
 			#callMyDoctors .cmd-grid{ display:flex; gap:16px; overflow-x:auto; padding-bottom:6px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
 			#callMyDoctors .cmd-card{ border:1px solid #E7EAEE; border-radius:12px; padding:16px; background:#fafafa; display:flex; flex-direction:column; flex:1 1 0; min-width:280px; max-width:none; scroll-snap-align:start; }

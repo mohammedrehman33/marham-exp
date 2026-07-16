@@ -21,7 +21,9 @@ cmd = ["python3", ENGINE, "--doctors", DOCTORS]
 if "--disease" not in extra:
     cmd += ["--disease", "-"]
 if "--badge" not in extra:
-    cmd += ["--badge", "7 دن تک ڈاکٹر سے مفت رہنمائی حاصل کریں"]
+    cmd += ["--badge", "7 دن تک ڈاکٹر سے مرہم ایپ سے مفت رہنمائی حاصل کریں"]
+if "--fomo" not in extra:
+    cmd += ["--fomo", "Book online consultation — limited-time offer, ends soon!"]
 if "--utm" not in extra:
     cmd += ["--utm", "utm_source=karachi_gp_page&utm_medium=cmd_section&utm_campaign=call_my_doctors"]
 cmd += extra

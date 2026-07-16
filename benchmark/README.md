@@ -16,9 +16,9 @@ python3 tools/apply_benchmark.py \
 
 1. **Call-My-Doctors section** (inserted before `<!--Doctors-->`)
    - Heading: `Consult a Specialist for as Low as Rs. <lowest fee>`
-   - Red badge in Urdu: `7 دن تک ڈاکٹر سے مفت رہنمائی حاصل کریں`
+   - Red badge in Urdu: `7 دن تک ڈاکٹر سے مرہم ایپ سے مفت رہنمائی حاصل کریں`
      with Lucide stethoscope icon + slow glossy shimmer (4.5s)
-   - Note: "Book today — limited-time offer, ends soon!"
+   - Note: "Book online consultation — limited-time offer, ends soon!"
    - 3 doctor cards, full-width flex, circular photos, "Available Today"
    - Book CTAs UTM-tagged: `utm_source=<page>_page`,
      `utm_medium=cmd_section`, `utm_campaign=call_my_doctors`,

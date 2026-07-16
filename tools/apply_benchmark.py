@@ -33,7 +33,8 @@ import os, sys, subprocess, argparse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-DEFAULT_BADGE = "7 دن تک ڈاکٹر سے مفت رہنمائی حاصل کریں"
+DEFAULT_BADGE = "7 دن تک ڈاکٹر سے مرہم ایپ سے مفت رہنمائی حاصل کریں"
+DEFAULT_FOMO = "Book online consultation — limited-time offer, ends soon!"
 
 def run(script, args):
     cmd = ["python3", os.path.join(HERE, script)] + args
@@ -50,6 +51,7 @@ def main():
     ap.add_argument("--utm-source", required=True, help='e.g. "karachi_gp_page"')
     ap.add_argument("--female-ids", default="", help="comma-separated female doctor ids for the filter")
     ap.add_argument("--badge", default=DEFAULT_BADGE)
+    ap.add_argument("--fomo", default=DEFAULT_FOMO)
     ap.add_argument("--disease", default="-")
     ap.add_argument("--price", type=int, default=None, help="override heading price (default: lowest card fee)")
     ap.add_argument("--offset", type=int, default=650, help="Show-Doctors fallback scroll offset")
@@ -58,7 +60,7 @@ def main():
     utm = "utm_source=%s&utm_medium=cmd_section&utm_campaign=call_my_doctors" % a.utm_source
 
     cmd_args = ["--in", a.inp, "--out", a.out, "--doctors", a.doctors,
-                "--disease", a.disease, "--badge", a.badge, "--utm", utm]
+                "--disease", a.disease, "--badge", a.badge, "--fomo", a.fomo, "--utm", utm]
     if a.price:
         cmd_args += ["--price", str(a.price)]
     run("inject_cmd_section.py", cmd_args)

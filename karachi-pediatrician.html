@@ -4855,6 +4855,18 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
 (function(){
     var FEMALE_IDS = ["14667","38989","16031","22002","8389","28433","7631","26152"];
     function num(s){ s=(s||'').replace(/,/g,''); var n=parseInt(s,10); return isNaN(n)?0:n; }
+    function docId(card){
+        var el=card.querySelector('[data-doctorid],[data-doctorId]');
+        if(el) return el.getAttribute('data-doctorid')||el.getAttribute('data-doctorId');
+        // fallback: the impression span rendered just before the card
+        var p=card.previousElementSibling, hops=0;
+        while(p&&hops<4){
+            if(p.classList&&p.classList.contains('doctor-impression-id')) return p.getAttribute('data-doctor-id');
+            if(p.classList&&p.classList.contains('shadow-card')) break;
+            p=p.previousElementSibling; hops++;
+        }
+        return '';
+    }
     function init(){
         var cards=[].slice.call(document.querySelectorAll('.row.shadow-card'));
         if(!cards.length) return;
@@ -4862,8 +4874,8 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
             var t=card.textContent||'';
             var fees=[].slice.call(card.querySelectorAll('[data-amount]')).map(function(el){return num(el.getAttribute('data-amount'));}).filter(function(n){return n>0;});
             var mExp=t.match(/Experience\s*([0-9]+)\s*Yrs/); var mSat=t.match(/Satisfaction\s*([0-9]+)%/);
-            var revEl=card.querySelector('.text-golden'); var idEl=card.querySelector('[data-doctorid],[data-doctorId]');
-            var did=idEl?(idEl.getAttribute('data-doctorid')||idEl.getAttribute('data-doctorId')):'';
+            var revEl=card.querySelector('.text-golden');
+            var did=docId(card);
             return { card:card, order:i,
                 fee:fees.length?Math.min.apply(null,fees):999999,
                 exp:mExp?num(mExp[1]):0,

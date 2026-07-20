@@ -4835,6 +4835,18 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
         <span class="mh-chip" data-kind="toggle" data-key="avail">Available Today</span>
         <span class="mh-chip" data-kind="toggle" data-key="video">Video Consultation</span>
     </div>
+    <div class="mh-chips" id="mhInterests">
+        <span class="mh-chip" data-kind="interest" data-key="Nasal Polyps">Nasal Polyps</span>
+        <span class="mh-chip" data-kind="interest" data-key="Endoscope Finest Surgery">Endoscope Finest Surgery</span>
+        <span class="mh-chip" data-kind="interest" data-key="Cosmetic Rhinoplasty">Cosmetic Rhinoplasty</span>
+        <span class="mh-chip" data-kind="interest" data-key="Nose Plastic Surgery">Nose Plastic Surgery</span>
+        <span class="mh-chip" data-kind="interest" data-key="Thyroid Surgery">Thyroid Surgery</span>
+        <span class="mh-chip" data-kind="interest" data-key="Ear Surgery">Ear Surgery</span>
+        <span class="mh-chip" data-kind="interest" data-key="ENT And Head/neck Surgery">ENT And Head/neck Surgery</span>
+        <span class="mh-chip" data-kind="interest" data-key="Endoscopic Sinus Surgery">Endoscopic Sinus Surgery</span>
+        <span class="mh-chip" data-kind="interest" data-key="Tonsillectomy">Tonsillectomy</span>
+        <span class="mh-chip" data-kind="interest" data-key="Cancer Surgery">Cancer Surgery</span>
+    </div>
     <div class="mh-nores" id="mhNoRes">No doctors match the selected filters. Tap a filter again to remove it.</div>
 </div>
 <script>
@@ -4858,6 +4870,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
         if(!cards.length) return;
         var items=cards.map(function(card,i){
             var t=card.textContent||'';
+            var interests=[].slice.call(card.querySelectorAll('[data-location="area of interest"]')).map(function(e){return e.textContent.trim();});
             var fees=[].slice.call(card.querySelectorAll('[data-amount]')).map(function(el){return num(el.getAttribute('data-amount'));}).filter(function(n){return n>0;});
             var mExp=t.match(/Experience\s*([0-9]+)\s*Yrs/); var mSat=t.match(/Satisfaction\s*([0-9]+)%/);
             var revEl=card.querySelector('.text-golden');
@@ -4868,6 +4881,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                 sat:mSat?num(mSat[1]):0,
                 rev:revEl?num(revEl.textContent):0,
                 female:FEMALE_IDS.indexOf(String(did))>-1,
+                interests:interests,
                 avail:t.indexOf('Available Today')>-1,
                 video:t.indexOf('Video Consultation')>-1 };
         });
@@ -4878,13 +4892,15 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
             it.card.parentNode.insertBefore(m, it.card);
             return m;
         });
-        var toggles={}, sortKey=null;
-        var chips=[].slice.call(document.querySelectorAll('#mhChips .mh-chip'));
+        var toggles={}, sortKey=null, interestsOn={};
+        var chips=[].slice.call(document.querySelectorAll('#mhChips .mh-chip, #mhInterests .mh-chip'));
         function apply(){
+            var wanted=Object.keys(interestsOn).filter(function(k){return interestsOn[k];});
             var visible=items.filter(function(it){
                 if(toggles.female&&!it.female) return false;
                 if(toggles.avail&&!it.avail) return false;
                 if(toggles.video&&!it.video) return false;
+                if(wanted.length&&!it.interests.some(function(x){return wanted.indexOf(x)>-1;})) return false;
                 return true;
             });
             items.forEach(function(it){ it.card.style.display='none'; });
@@ -4899,18 +4915,19 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                 it.card.style.display='';
             });
             document.getElementById('mhNoRes').style.display=visible.length?'none':'block';
-            var any=sortKey||Object.keys(toggles).some(function(k){return toggles[k];});
+            var any=sortKey||Object.keys(toggles).some(function(k){return toggles[k];})||wanted.length;
             document.getElementById('mhClear').classList.toggle('show',!!any);
         }
         document.getElementById('mhClear').addEventListener('click',function(){
-            toggles={}; sortKey=null;
+            toggles={}; sortKey=null; interestsOn={};
             chips.forEach(function(c){ c.classList.remove('active'); });
             apply();
         });
         chips.forEach(function(ch){
             ch.addEventListener('click',function(){
                 var kind=ch.getAttribute('data-kind'), key=ch.getAttribute('data-key');
-                if(kind==='toggle'){ toggles[key]=!toggles[key]; ch.classList.toggle('active',!!toggles[key]); }
+                if(kind==='interest'){ interestsOn[key]=!interestsOn[key]; ch.classList.toggle('active',!!interestsOn[key]); }
+                else if(kind==='toggle'){ toggles[key]=!toggles[key]; ch.classList.toggle('active',!!toggles[key]); }
                 else{
                     if(sortKey===key){ sortKey=null; ch.classList.remove('active'); }
                     else{ sortKey=key; chips.forEach(function(c){ if(c.getAttribute('data-kind')==='sort') c.classList.remove('active'); }); ch.classList.add('active'); }

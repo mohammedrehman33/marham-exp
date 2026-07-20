@@ -50,7 +50,7 @@ TEMPLATE = START + '''
         <span class="mh-chip" data-kind="toggle" data-key="avail">Available Today</span>
         <span class="mh-chip" data-kind="toggle" data-key="video">Video Consultation</span>
     </div>
-    <div class="mh-nores" id="mhNoRes">No doctors match the selected filters. Tap a filter again to remove it.</div>
+{interest_row}    <div class="mh-nores" id="mhNoRes">No doctors match the selected filters. Tap a filter again to remove it.</div>
 </div>
 <script>
 (function(){
@@ -73,6 +73,7 @@ TEMPLATE = START + '''
         if(!cards.length) return;
         var items=cards.map(function(card,i){
             var t=card.textContent||'';
+            var interests=[].slice.call(card.querySelectorAll('[data-location="area of interest"]')).map(function(e){return e.textContent.trim();});
             var fees=[].slice.call(card.querySelectorAll('[data-amount]')).map(function(el){return num(el.getAttribute('data-amount'));}).filter(function(n){return n>0;});
             var mExp=t.match(/Experience\\s*([0-9]+)\\s*Yrs/); var mSat=t.match(/Satisfaction\\s*([0-9]+)%/);
             var revEl=card.querySelector('.text-golden');
@@ -83,6 +84,7 @@ TEMPLATE = START + '''
                 sat:mSat?num(mSat[1]):0,
                 rev:revEl?num(revEl.textContent):0,
                 female:FEMALE_IDS.indexOf(String(did))>-1,
+                interests:interests,
                 avail:t.indexOf('Available Today')>-1,
                 video:t.indexOf('Video Consultation')>-1 };
         });
@@ -93,13 +95,15 @@ TEMPLATE = START + '''
             it.card.parentNode.insertBefore(m, it.card);
             return m;
         });
-        var toggles={}, sortKey=null;
-        var chips=[].slice.call(document.querySelectorAll('#mhChips .mh-chip'));
+        var toggles={}, sortKey=null, interestsOn={};
+        var chips=[].slice.call(document.querySelectorAll('#mhChips .mh-chip, #mhInterests .mh-chip'));
         function apply(){
+            var wanted=Object.keys(interestsOn).filter(function(k){return interestsOn[k];});
             var visible=items.filter(function(it){
                 if(toggles.female&&!it.female) return false;
                 if(toggles.avail&&!it.avail) return false;
                 if(toggles.video&&!it.video) return false;
+                if(wanted.length&&!it.interests.some(function(x){return wanted.indexOf(x)>-1;})) return false;
                 return true;
             });
             items.forEach(function(it){ it.card.style.display='none'; });
@@ -114,18 +118,19 @@ TEMPLATE = START + '''
                 it.card.style.display='';
             });
             document.getElementById('mhNoRes').style.display=visible.length?'none':'block';
-            var any=sortKey||Object.keys(toggles).some(function(k){return toggles[k];});
+            var any=sortKey||Object.keys(toggles).some(function(k){return toggles[k];})||wanted.length;
             document.getElementById('mhClear').classList.toggle('show',!!any);
         }
         document.getElementById('mhClear').addEventListener('click',function(){
-            toggles={}; sortKey=null;
+            toggles={}; sortKey=null; interestsOn={};
             chips.forEach(function(c){ c.classList.remove('active'); });
             apply();
         });
         chips.forEach(function(ch){
             ch.addEventListener('click',function(){
                 var kind=ch.getAttribute('data-kind'), key=ch.getAttribute('data-key');
-                if(kind==='toggle'){ toggles[key]=!toggles[key]; ch.classList.toggle('active',!!toggles[key]); }
+                if(kind==='interest'){ interestsOn[key]=!interestsOn[key]; ch.classList.toggle('active',!!interestsOn[key]); }
+                else if(kind==='toggle'){ toggles[key]=!toggles[key]; ch.classList.toggle('active',!!toggles[key]); }
                 else{
                     if(sortKey===key){ sortKey=null; ch.classList.remove('active'); }
                     else{ sortKey=key; chips.forEach(function(c){ if(c.getAttribute('data-kind')==='sort') c.classList.remove('active'); }); ch.classList.add('active'); }
@@ -144,12 +149,21 @@ def main():
     ap.add_argument("--in", dest="inp", required=True)
     ap.add_argument("--out", dest="out", required=True)
     ap.add_argument("--female-ids", default="", help='comma-separated doctor ids to treat as female, e.g. "33127,7872"')
+    ap.add_argument("--interests", default="", help='comma-separated areas-of-interest to offer as filter chips, e.g. "Nasal Polyps,Ear Surgery"')
     a = ap.parse_args()
 
     doc = open(a.inp, encoding="utf-8", newline="").read()
     nl = "\r\n" if "\r\n" in doc else "\n"
     ids = [s.strip() for s in a.female_ids.split(",") if s.strip()]
-    block = TEMPLATE.replace("{__FEMALE_IDS__}", "[" + ",".join('"%s"' % i for i in ids) + "]").replace("\n", nl)
+    interests = [s.strip() for s in a.interests.split(",") if s.strip()]
+    import html as _html
+    interest_row = ""
+    if interests:
+        chips = "".join('        <span class="mh-chip" data-kind="interest" data-key="%s">%s</span>\n'
+                        % (_html.escape(x, quote=True), _html.escape(x)) for x in interests)
+        interest_row = '    <div class="mh-chips" id="mhInterests">\n' + chips + '    </div>\n'
+    block = (TEMPLATE.replace("{__FEMALE_IDS__}", "[" + ",".join('"%s"' % i for i in ids) + "]")
+                     .replace("{interest_row}", interest_row).replace("\n", nl))
 
     if START in doc and END in doc:
         doc = re.sub(re.escape(START) + r".*?" + re.escape(END) + r"\r?\n?", lambda m: block, doc, flags=re.S)

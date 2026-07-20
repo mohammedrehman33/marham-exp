@@ -37,7 +37,7 @@ STYLE = '''			<style>
 			#callMyDoctors .cmd-grid{ display:flex; gap:16px; overflow-x:auto; padding-bottom:6px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
 			#callMyDoctors .cmd-card{ border:1px solid #E7EAEE; border-radius:12px; padding:16px; background:#fafafa; display:flex; flex-direction:column; flex:1 1 0; min-width:280px; max-width:none; scroll-snap-align:start; }
 			#callMyDoctors .cmd-top{ display:flex; align-items:center; gap:12px; }
-			#callMyDoctors .cmd-photo{ width:58px !important; height:58px !important; min-width:58px; min-height:58px; max-width:58px; max-height:58px; aspect-ratio:1 / 1; border-radius:50%; object-fit:cover !important; object-position:center; flex-shrink:0; border:2px solid #2BB3A3; padding:2px; background:#fff; box-sizing:border-box; }
+			#callMyDoctors .cmd-photo{ width:72px !important; height:72px !important; min-width:72px; min-height:72px; max-width:72px; max-height:72px; aspect-ratio:1 / 1; border-radius:50%; object-fit:cover !important; object-position:center; flex-shrink:0; border:2px solid #2BB3A3; padding:2px; background:#fff; box-sizing:border-box; }
 			#callMyDoctors .cmd-name{ margin:0 0 4px; font-size:15px; line-height:1.2; }
 			#callMyDoctors .cmd-name a{ color:#136c8f; text-decoration:none; font-weight:500; }
 			#callMyDoctors .cmd-avail{ display:flex; align-items:center; gap:6px; font-size:13px; color:#1aa260; font-weight:500; margin-bottom:4px; }
@@ -146,7 +146,7 @@ def build_section(docs, disease, fomo_note, price=None, badge="FLAT 30% OFF on L
         exp = f'<span class="cmd-exp">{d["exp"]}+ Years Exp</span>' if d.get("exp") else ""
         nm = html.escape(d["name"])
         cards += (f'<div class="cmd-card"><div class="cmd-top">'
-                  f'<a class="instant_doctor_clicked" href="{prof}" data-url="{prof}"><img class="cmd-photo" src="{photo}" alt="{nm}" width="58" height="58" loading="lazy"></a>'
+                  f'<a class="instant_doctor_clicked" href="{prof}" data-url="{prof}"><img class="cmd-photo" src="{photo}" alt="{nm}" width="72" height="72" loading="lazy"></a>'
                   f'<div><p class="cmd-name"><a class="instant_doctor_clicked" href="{prof}" data-url="{prof}">{nm}</a></p>'
                   f'<div class="cmd-avail"><span class="dot"></span> Available Today</div>'
                   f'<div class="cmd-fee">{fee}</div></div></div>'

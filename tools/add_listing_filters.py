@@ -49,8 +49,8 @@ TEMPLATE = START + '''
 /* hide the areas-of-interest chips row inside doctor cards */
 .row.shadow-card .col-12.horizontal-scroll.smart-bar.mb-10{ display:none !important; }
 /* smaller doctor profile photo in listing cards */
-.row.shadow-card .round-img{ width:120px !important; height:120px !important; max-width:120px !important; object-fit:cover; border-radius:50%; }
-@media (max-width:768px){ .row.shadow-card .round-img{ width:76px !important; height:76px !important; max-width:76px !important; } }
+.row.shadow-card .round-img{ width:140px !important; height:140px !important; max-width:140px !important; object-fit:cover; border-radius:50%; }
+@media (max-width:768px){ .row.shadow-card .round-img{ width:88px !important; height:88px !important; max-width:88px !important; } }
 </style>
 <div class="container mb-0" id="mhFilters">
     <div class="mh-car">

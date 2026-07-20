@@ -50,6 +50,7 @@ def main():
     ap.add_argument("--doctors", required=True, help="doctors JSON for the CMD section")
     ap.add_argument("--utm-source", required=True, help='e.g. "karachi_gp_page"')
     ap.add_argument("--female-ids", default="", help="comma-separated female doctor ids for the filter")
+    ap.add_argument("--interests", default="", help='areas-of-interest chips, "English=اردو" pairs comma-separated (passed through to add_listing_filters)')
     ap.add_argument("--badge", default=DEFAULT_BADGE)
     ap.add_argument("--fomo", default=DEFAULT_FOMO)
     ap.add_argument("--disease", default="-")
@@ -64,7 +65,10 @@ def main():
     if a.price:
         cmd_args += ["--price", str(a.price)]
     run("inject_cmd_section.py", cmd_args)
-    run("add_listing_filters.py", ["--in", a.out, "--out", a.out, "--female-ids", a.female_ids])
+    filter_args = ["--in", a.out, "--out", a.out, "--female-ids", a.female_ids]
+    if a.interests:
+        filter_args += ["--interests", a.interests]
+    run("add_listing_filters.py", filter_args)
     run("add_show_doctors_button.py", ["--in", a.out, "--out", a.out, "--offset", str(a.offset)])
     print("OK  benchmark treatment applied to", a.out)
 

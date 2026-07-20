@@ -41,6 +41,7 @@ TEMPLATE = START + '''
 #mhFilters .mh-chip{ display:inline-flex; align-items:center; white-space:nowrap; padding:6px 14px; border:1px solid #004d71; border-radius:999px; background:#fff; color:#004d71; font-weight:400; font-size:13px; line-height:1.2; cursor:pointer; user-select:none; transition:background .15s,color .15s,box-shadow .15s; }
 #mhFilters .mh-chip:hover{ box-shadow:0 1px 6px rgba(0,77,113,.25); }
 #mhFilters .mh-chip.active{ background:#004d71; color:#fff; }
+#mhFilters .mh-chip-ur{ font-family:system-ui, -apple-system, "Segoe UI", sans-serif; }
 #mhFilters .mh-clear{ display:none; align-items:center; white-space:nowrap; padding:6px 14px; border:1px dashed #9aabb5; border-radius:999px; background:#fff; color:#5a6b77; font-weight:400; font-size:13px; line-height:1.2; cursor:pointer; user-select:none; }
 #mhFilters .mh-clear:hover{ color:#004d71; border-color:#004d71; }
 #mhFilters .mh-clear.show{ display:inline-flex; }
@@ -177,7 +178,7 @@ def main():
     ap.add_argument("--in", dest="inp", required=True)
     ap.add_argument("--out", dest="out", required=True)
     ap.add_argument("--female-ids", default="", help='comma-separated doctor ids to treat as female, e.g. "33127,7872"')
-    ap.add_argument("--interests", default="", help='comma-separated areas-of-interest to offer as filter chips, e.g. "Nasal Polyps,Ear Surgery"')
+    ap.add_argument("--interests", default="", help='comma-separated areas-of-interest to offer as filter chips. Plain "Nasal Polyps" or "Nasal Polyps=ناک کے غدود" to show an Urdu label as "اردو (English)" while matching the English span text')
     a = ap.parse_args()
 
     doc = open(a.inp, encoding="utf-8", newline="").read()
@@ -185,8 +186,16 @@ def main():
     ids = [s.strip() for s in a.female_ids.split(",") if s.strip()]
     interests = [s.strip() for s in a.interests.split(",") if s.strip()]
     import html as _html
-    interest_chips = "".join('        <span class="mh-chip" data-kind="interest" data-key="%s">%s</span>\n'
-                             % (_html.escape(x, quote=True), _html.escape(x)) for x in interests)
+    def interest_chip(x):
+        # "English=اردو" -> key stays English (matches card spans), label shows "اردو (English)"
+        if "=" in x:
+            eng, urdu = [s.strip() for s in x.split("=", 1)]
+            label = "%s (%s)" % (_html.escape(urdu), _html.escape(eng))
+            return ('        <span class="mh-chip mh-chip-ur" dir="auto" data-kind="interest" data-key="%s">%s</span>\n'
+                    % (_html.escape(eng, quote=True), label))
+        return ('        <span class="mh-chip" data-kind="interest" data-key="%s">%s</span>\n'
+                % (_html.escape(x, quote=True), _html.escape(x)))
+    interest_chips = "".join(interest_chip(x) for x in interests)
     block = (TEMPLATE.replace("{__FEMALE_IDS__}", "[" + ",".join('"%s"' % i for i in ids) + "]")
                      .replace("{interest_chips}", interest_chips).replace("\n", nl))
 

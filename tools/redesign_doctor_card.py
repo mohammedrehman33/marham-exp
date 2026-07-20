@@ -52,6 +52,7 @@ STYLE = STYLE_MARK + '''<style>
 .mh2-save{ background:#fff3e0; color:#c77700; font-size:12px; font-weight:700; padding:3px 9px; border-radius:6px; }
 .mh2-offer{ font-size:12.5px; color:#5a6b77; margin-top:4px; }
 .mh2-clinic{ font-size:14px; font-weight:600; color:#136c8f; margin-bottom:4px; line-height:1.35; }
+.mh2-clinicblock + .mh2-clinicblock{ margin-top:16px; padding-top:14px; border-top:1px dashed #e2e8ec; }
 .mh2-cta{ display:block; width:100%; text-align:center; text-decoration:none; font-size:15px; font-weight:600; padding:13px 12px; border-radius:10px; margin-top:14px; box-sizing:border-box; line-height:1.2; }
 .mh2-cta.video{ background:#3aa981; color:#fff; }
 .mh2-cta.video:hover{ background:#329270; color:#fff; }
@@ -68,7 +69,7 @@ STYLE = STYLE_MARK + '''<style>
 }
 </style>'''
 
-TPL = '''{style}<!-- MH_CARD2_START_{did} -->
+TPL = '''<!-- MH_CARD2_START_{did} -->{style}
 <div class="mh2-card" id="mh2-{did}">
   <div class="mh2-main">
     <div class="mh2-head">
@@ -80,12 +81,8 @@ TPL = '''{style}<!-- MH_CARD2_START_{did} -->
         <div class="mh2-stats"><span class="mh2-stat"><span class="st">&#9733;</span> {reviews} reviews</span><span class="mh2-stat">{exp} yrs experience</span><span class="mh2-stat">{sat}% satisfaction</span></div>
       </div>
     </div>
-    <div class="mh2-chips">{chips}</div>
-    <div class="mh2-review">
-      <div class="mh2-rev-top"><span class="mh2-rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="mh2-rev-verified">&#10003; Verified patient review</span></div>
-      <p class="mh2-rev-quote">&ldquo;{quote}&rdquo;</p>
-      <a class="mh2-rev-link" href="{revurl}" target="_blank" rel="noopener">Read all {reviews} reviews &rarr;</a>
-    </div>
+    {chips_html}
+    {review_html}
   </div>
   <div class="mh2-rail">
     <div class="mh2-tabs">
@@ -94,15 +91,12 @@ TPL = '''{style}<!-- MH_CARD2_START_{did} -->
     </div>
     <div class="mh2-pane" data-pane="video">
       <div class="mh2-avail"><span class="dot"></span> Available today</div>
-      <div class="mh2-pricerow"><span class="mh2-price">{vfee}</span><span class="mh2-oldprice">{voldfee}</span><span class="mh2-save">{vsave}</span></div>
-      <div class="mh2-offer">{voffer}</div>
+      <div class="mh2-pricerow"><span class="mh2-price">{vfee}</span>{vextra}</div>
+      {voffer}
       <a class="mh2-cta video dr_profile_opened_from_listing_btn_vcall" href="{vurl}">{vcta}</a>
     </div>
     <div class="mh2-pane" data-pane="clinic" style="display:none;">
-      <div class="mh2-clinic">{cname}</div>
-      <div class="mh2-avail"><span class="dot"></span> Available today</div>
-      <div class="mh2-pricerow"><span class="mh2-price">{cfee}</span></div>
-      <a class="mh2-cta clinic dr_profile_open_frm_listing_btn_vprofile" href="{curl}">{ccta}</a>
+      {clinic_panes}
     </div>
     <div class="mh2-note">{footnote}</div>
   </div>
@@ -110,6 +104,19 @@ TPL = '''{style}<!-- MH_CARD2_START_{did} -->
 <script>(function(){{var c=document.getElementById('mh2-{did}');if(!c)return;var tabs=c.querySelectorAll('.mh2-tab'),panes=c.querySelectorAll('.mh2-pane');tabs.forEach(function(t){{t.addEventListener('click',function(){{tabs.forEach(function(x){{x.classList.remove('on');}});t.classList.add('on');var k=t.getAttribute('data-pane');panes.forEach(function(p){{p.style.display=(p.getAttribute('data-pane')===k)?'':'none';}});}});}});}})();</script>
 <!-- MH_CARD2_END_{did} -->
 '''
+
+CLINIC_TPL = '''<div class="mh2-clinicblock">
+      <div class="mh2-clinic">{cname}</div>
+      <div class="mh2-avail"><span class="dot"></span> Available today</div>
+      <div class="mh2-pricerow"><span class="mh2-price">{cfee}</span></div>
+      <a class="mh2-cta clinic dr_profile_open_frm_listing_btn_vprofile" href="{curl}">{ccta}</a>
+    </div>'''
+
+REVIEW_TPL = '''<div class="mh2-review">
+      <div class="mh2-rev-top"><span class="mh2-rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="mh2-rev-verified">&#10003; Verified patient review</span></div>
+      <p class="mh2-rev-quote">&ldquo;{quote}&rdquo;</p>
+      <a class="mh2-rev-link" href="{revurl}" target="_blank" rel="noopener">Read all {reviews} reviews &rarr;</a>
+    </div>'''
 
 def main():
     ap = argparse.ArgumentParser()
@@ -125,17 +132,28 @@ def main():
 
     esc = lambda u: (u or "").replace("&", "&amp;")
     chips = "".join('<span class="mh2-chip">%s</span>' % html.escape(c) for c in cfg.get("chips", []))
+    chips_html = '<div class="mh2-chips">%s</div>' % chips if chips else ""
+    review_html = REVIEW_TPL.format(quote=html.escape(cfg["review_quote"]), revurl=esc(cfg.get("reviews_url", "#")),
+                                    reviews=cfg["reviews"]) if cfg.get("review_quote") else ""
+    v = cfg["video"]
+    vextra = ""
+    if v.get("old_fee"):
+        vextra += '<span class="mh2-oldprice">%s</span>' % v["old_fee"]
+    if v.get("save"):
+        vextra += '<span class="mh2-save">%s</span>' % v["save"]
+    voffer = '<div class="mh2-offer">%s</div>' % v["note"] if v.get("note") else ""
+    clinics = cfg.get("clinics") or ([cfg["clinic"]] if cfg.get("clinic") else [])
+    clinic_panes = "".join(CLINIC_TPL.format(cname=c["name"], cfee=c["fee"], ccta=c["cta"], curl=esc(c["url"]))
+                           for c in clinics)
     block = TPL.format(
         style="" if STYLE_MARK in doc else STYLE,
         did=did, name=html.escape(cfg["name"]), photo=esc(cfg["photo"]), profile=esc(cfg["profile"]),
         topbooked='<span class="mh2-topbooked">&#9733; TOP BOOKED</span>' if cfg.get("top_booked") else "",
         pmdc='<div class="mh2-pmdc">&#10003; PMDC Verified</div>' if cfg.get("pmdc") else "",
         spec=cfg["specialty_line"], reviews=cfg["reviews"], exp=cfg["exp"], sat=cfg["satisfaction"],
-        chips=chips, quote=html.escape(cfg["review_quote"]), revurl=esc(cfg["reviews_url"]),
-        vfee=cfg["video"]["fee"], voldfee=cfg["video"].get("old_fee", ""), vsave=cfg["video"].get("save", ""),
-        voffer=cfg["video"].get("note", ""), vcta=cfg["video"]["cta"], vurl=esc(cfg["video"]["url"]),
-        cname=cfg["clinic"]["name"], cfee=cfg["clinic"]["fee"], ccta=cfg["clinic"]["cta"], curl=esc(cfg["clinic"]["url"]),
-        footnote=cfg.get("footer_note", ""),
+        chips_html=chips_html, review_html=review_html,
+        vfee=v["fee"], vextra=vextra, voffer=voffer, vcta=v["cta"], vurl=esc(v["url"]),
+        clinic_panes=clinic_panes, footnote=cfg.get("footer_note", ""),
     ).replace("\n", nl)
 
     smark, emark = "<!-- MH_CARD2_START_%s -->" % did, "<!-- MH_CARD2_END_%s -->" % did

@@ -1,0 +1,23 @@
+{
+  "doctor_id": "4138",
+  "name": "Dr. Hafiz Rizwan Javaid",
+  "top_booked": false,
+  "pmdc": true,
+  "specialty_line": "Dentist &middot; BDS, RDS",
+  "photo": "https://staticconnect-new.marham.pk/assets/doctors/4138/dr-hafiz-rizwan-javaid-dentist-lahore-96_170X170.webp",
+  "profile": "https://www.marham.pk/doctors/lahore/dentist/dr-hafiz-rizwan-javaid",
+  "reviews": "51",
+  "exp": "11",
+  "satisfaction": "93",
+  "chips": [],
+  "video": {
+    "fee": "Rs. 300",
+    "cta": "Book Video Call",
+    "url": "https://www.marham.pk/online-consultation/request?id=98&d_id=4138"
+  },
+  "clinics": [
+    {"name": "Hafiz Dental Clinic, Walton Road, Lahore", "fee": "Rs. 300", "cta": "Book Appointment", "url": "https://www.marham.pk/doctors/lahore/dentist/dr-hafiz-rizwan-javaid/callcenter?h_id=7486"},
+    {"name": "Hafiz Dental And Doctor Clinic, Cantt, Lahore", "fee": "Rs. 500", "cta": "Book Appointment", "url": "https://www.marham.pk/doctors/lahore/dentist/dr-hafiz-rizwan-javaid/callcenter?h_id=633"}
+  ],
+  "footer_note": "Free cancellation &middot; Confirmed booking"
+}

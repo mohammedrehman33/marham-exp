@@ -128,7 +128,7 @@ def extract_doctors(doc):
         docs.append(dict(name=name, profile=profile, photo=photo, reviews=reviews, exp=exp, fee=fee, book=book))
     return docs
 
-def build_section(docs, disease, fomo_note, price=None, badge="FLAT 30% OFF on Lab Tests", utm=None):
+def build_section(docs, disease, fomo_note, price=None, badge="FLAT 30% OFF on Lab Tests", utm=None, cta="Book Appointment"):
     # "as Low as Rs. X": X is the LOWEST fee among the cards (or an explicit --price override).
     fees = [(d.get("fee") or 0) for d in docs if (d.get("fee") or 0) > 0]
     head_price = price if price else (min(fees) if fees else 0)
@@ -152,7 +152,7 @@ def build_section(docs, disease, fomo_note, price=None, badge="FLAT 30% OFF on L
                   f'<div class="cmd-fee">{fee}</div></div></div>'
                   f'<div class="cmd-stats">{rev}{exp}</div>'
                   + (f'<div class="cmd-rev" dir="auto"><span class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rv-v">Verified Patient</span><div class="rv-q">&ldquo;{html.escape(d["review"])}&rdquo;</div></div>' if d.get("review") else "")
-                  + f'<a class="cmd-book instant_doctor_call_now_btn_clicked" href="{book}" data-url="{book}">Book Appointment</a></div>')
+                  + f'<a class="cmd-book instant_doctor_call_now_btn_clicked" href="{book}" data-url="{book}">{html.escape(cta)}</a></div>')
     section = (CMD_START + "\n" + STYLE +
                f'''			<div class="container mt-10" id="callMyDoctors">
 				<div class="cmd-affordable" id="cmdPanel">
@@ -183,6 +183,7 @@ def main():
     ap.add_argument("--anchor", default="<!--Doctors-->")
     ap.add_argument("--fomo", default="Book today — limited-time offer, ends soon!")
     ap.add_argument("--badge", default="FLAT 30% OFF on Lab Tests", help="red highlight badge text (next to the bolt)")
+    ap.add_argument("--cta", default="Book Appointment", help="card CTA button text")
     ap.add_argument("--utm", default=None, help='GA campaign params for Book CTAs, e.g. "utm_source=X&utm_medium=Y&utm_campaign=Z"; per-doctor utm_content is added automatically')
     ap.add_argument("--price", type=int, default=None, help="force the heading 'as Low as Rs. X' number; default = lowest card fee")
     a = ap.parse_args()
@@ -201,7 +202,7 @@ def main():
     if not docs:
         sys.exit("ERROR: no doctors found/provided. Use --doctors doctors.json")
 
-    section, title = build_section(docs, disease, a.fomo, price=a.price, badge=a.badge, utm=a.utm)
+    section, title = build_section(docs, disease, a.fomo, price=a.price, badge=a.badge, utm=a.utm, cta=a.cta)
     section = section.replace("\n", nl)  # match the page's own line endings
 
     # Idempotent: replace existing section if present.

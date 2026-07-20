@@ -53,6 +53,7 @@ def main():
     ap.add_argument("--interests", default="", help='areas-of-interest chips, "English=اردو" pairs comma-separated (passed through to add_listing_filters)')
     ap.add_argument("--badge", default=DEFAULT_BADGE)
     ap.add_argument("--fomo", default=DEFAULT_FOMO)
+    ap.add_argument("--cta", default="Book Appointment", help="CMD card CTA button text")
     ap.add_argument("--disease", default="-")
     ap.add_argument("--price", type=int, default=None, help="override heading price (default: lowest card fee)")
     ap.add_argument("--offset", type=int, default=650, help="Show-Doctors fallback scroll offset")
@@ -61,7 +62,8 @@ def main():
     utm = "utm_source=%s&utm_medium=cmd_section&utm_campaign=call_my_doctors" % a.utm_source
 
     cmd_args = ["--in", a.inp, "--out", a.out, "--doctors", a.doctors,
-                "--disease", a.disease, "--badge", a.badge, "--fomo", a.fomo, "--utm", utm]
+                "--disease", a.disease, "--badge", a.badge, "--fomo", a.fomo, "--utm", utm,
+                "--cta", a.cta]
     if a.price:
         cmd_args += ["--price", str(a.price)]
     run("inject_cmd_section.py", cmd_args)

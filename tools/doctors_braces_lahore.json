@@ -1,0 +1,29 @@
+[
+ {
+  "name": "Dr. Hafiz Rizwan Javaid",
+  "profile": "https://www.marham.pk/doctors/lahore/dentist/dr-hafiz-rizwan-javaid",
+  "photo": "https://staticconnect-new.marham.pk/assets/doctors/4138/dr-hafiz-rizwan-javaid-dentist-lahore-96_170X170.webp",
+  "reviews": "51",
+  "exp": "11",
+  "fee": 300,
+  "book": "https://www.marham.pk/online-consultation/request?id=98&d_id=4138"
+ },
+ {
+  "name": "Dr. Asifa Iqbal",
+  "profile": "https://www.marham.pk/doctors/lahore/dentist/dr-asifa-iqbal",
+  "photo": "https://staticconnect-new.marham.pk/assets/doctors/5038/dr-asifa-iqbal-dentist-lahore_170X170.webp",
+  "reviews": "1039",
+  "exp": "15",
+  "fee": 1200,
+  "book": "https://www.marham.pk/online-consultation/request?id=98&d_id=5038"
+ },
+ {
+  "name": "Dr. Sabahat Venus",
+  "profile": "https://www.marham.pk/online-consultation/dentist/lahore/dr-sabahat-venus-63743",
+  "photo": "https://staticconnect-new.marham.pk/assets/doctors/63743/dr-sabahat-venus-dentist-lahore-14_170X170.webp",
+  "reviews": "9",
+  "exp": "8",
+  "fee": 500,
+  "book": "https://www.marham.pk/online-consultation/request?id=98&d_id=63743"
+ }
+]

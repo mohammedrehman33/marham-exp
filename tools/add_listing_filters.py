@@ -28,8 +28,16 @@ END = "<!-- MH_FILTERS_END -->"
 TEMPLATE = START + '''
 <style>
 #mhFilters{ padding-top:12px; }
-#mhFilters .mh-chips{ display:flex; gap:10px; overflow-x:auto; padding:6px 2px 12px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+#mhFilters .mh-chips{ display:flex; gap:10px; overflow-x:auto; padding:6px 2px 12px; -webkit-overflow-scrolling:touch; scrollbar-width:none; scroll-behavior:smooth; }
 #mhFilters .mh-chips::-webkit-scrollbar{ display:none; }
+#mhFilters .mh-car{ position:relative; }
+#mhFilters .mh-car-btn{ position:absolute; top:50%; transform:translateY(-50%); width:34px; height:34px; border-radius:50%; background:#fff; border:1px solid #dfe6ea; box-shadow:0 2px 10px rgba(10,40,60,.18); display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:5; color:#004d71; padding:0; }
+#mhFilters .mh-car-btn:hover{ background:#f2f8fb; }
+#mhFilters .mh-car-btn svg{ width:16px; height:16px; display:block; }
+#mhFilters .mh-car-btn.left{ left:-8px; }
+#mhFilters .mh-car-btn.right{ right:-8px; }
+#mhFilters .mh-car-btn.off{ display:none; }
+@media (max-width:768px){ #mhFilters .mh-car-btn{ display:none; } }
 #mhFilters .mh-chip{ display:inline-flex; align-items:center; white-space:nowrap; padding:6px 14px; border:1px solid #004d71; border-radius:999px; background:#fff; color:#004d71; font-weight:400; font-size:13px; line-height:1.2; cursor:pointer; user-select:none; transition:background .15s,color .15s,box-shadow .15s; }
 #mhFilters .mh-chip:hover{ box-shadow:0 1px 6px rgba(0,77,113,.25); }
 #mhFilters .mh-chip.active{ background:#004d71; color:#fff; }
@@ -41,6 +49,8 @@ TEMPLATE = START + '''
 .row.shadow-card .col-12.horizontal-scroll.smart-bar.mb-10{ display:none !important; }
 </style>
 <div class="container mb-0" id="mhFilters">
+    <div class="mh-car">
+    <button type="button" class="mh-car-btn left off" aria-label="Scroll left"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
     <div class="mh-chips" id="mhChips">
         <span class="mh-clear" id="mhClear">&#10005; Clear All</span>
         <span class="mh-chip" data-kind="toggle" data-key="female">Female Doctors</span>
@@ -49,6 +59,8 @@ TEMPLATE = START + '''
         <span class="mh-chip" data-kind="sort" data-key="rated">Highest Rated</span>
         <span class="mh-chip" data-kind="toggle" data-key="avail">Available Today</span>
         <span class="mh-chip" data-kind="toggle" data-key="video">Video Consultation</span>
+    </div>
+    <button type="button" class="mh-car-btn right off" aria-label="Scroll right"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
     </div>
 {interest_row}    <div class="mh-nores" id="mhNoRes">No doctors match the selected filters. Tap a filter again to remove it.</div>
 </div>
@@ -126,6 +138,22 @@ TEMPLATE = START + '''
             chips.forEach(function(c){ c.classList.remove('active'); });
             apply();
         });
+        // carousel arrows for each chip row
+        [].slice.call(document.querySelectorAll('#mhFilters .mh-car')).forEach(function(car){
+            var row=car.querySelector('.mh-chips'),L=car.querySelector('.mh-car-btn.left'),R=car.querySelector('.mh-car-btn.right');
+            if(!row||!L||!R) return;
+            function upd(){
+                var max=row.scrollWidth-row.clientWidth;
+                if(max<=4){ L.classList.add('off'); R.classList.add('off'); return; }
+                L.classList.toggle('off',row.scrollLeft<=2);
+                R.classList.toggle('off',row.scrollLeft>=max-2);
+            }
+            L.addEventListener('click',function(){ row.scrollBy({left:-Math.round(row.clientWidth*0.7),behavior:'smooth'}); });
+            R.addEventListener('click',function(){ row.scrollBy({left:Math.round(row.clientWidth*0.7),behavior:'smooth'}); });
+            row.addEventListener('scroll',upd,{passive:true});
+            window.addEventListener('resize',upd);
+            upd();
+        });
         chips.forEach(function(ch){
             ch.addEventListener('click',function(){
                 var kind=ch.getAttribute('data-kind'), key=ch.getAttribute('data-key');
@@ -159,9 +187,13 @@ def main():
     import html as _html
     interest_row = ""
     if interests:
+        arrow_l = ('    <button type="button" class="mh-car-btn left off" aria-label="Scroll left"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>\n')
+        arrow_r = ('    <button type="button" class="mh-car-btn right off" aria-label="Scroll right"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>\n')
         chips = "".join('        <span class="mh-chip" data-kind="interest" data-key="%s">%s</span>\n'
                         % (_html.escape(x, quote=True), _html.escape(x)) for x in interests)
-        interest_row = '    <div class="mh-chips" id="mhInterests">\n' + chips + '    </div>\n'
+        interest_row = ('    <div class="mh-car">\n' + arrow_l +
+                        '    <div class="mh-chips" id="mhInterests">\n' + chips + '    </div>\n' +
+                        arrow_r + '    </div>\n')
     block = (TEMPLATE.replace("{__FEMALE_IDS__}", "[" + ",".join('"%s"' % i for i in ids) + "]")
                      .replace("{interest_row}", interest_row).replace("\n", nl))
 

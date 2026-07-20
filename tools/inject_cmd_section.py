@@ -29,7 +29,7 @@ STYLE = '''			<style>
 			#callMyDoctors .cmd-affordable{ background:#ffffff; border:1px solid #E7EAEE; border-radius:16px; padding:24px; box-shadow:5px 5px 16px 5px rgba(0,0,0,0.1); }
 			#callMyDoctors .cmd-title{ margin:0; font-size:22px; font-weight:600; color:#16384a; line-height:1.25; }
 			#callMyDoctors .cmd-sub{ margin:6px 0 20px; font-size:14px; font-weight:400; color:#4a5a68; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-			#callMyDoctors .cmd-fomo{ display:inline-flex; align-items:center; gap:6px; background:#fdecea; color:#d32f2f; font-weight:600; padding:4px 10px; border-radius:6px; font-size:13px; line-height:1.2; position:relative; overflow:hidden; }
+			#callMyDoctors .cmd-fomo{ display:inline-flex; align-items:center; gap:6px; background:#fdecea; color:#d32f2f; font-weight:600; padding:4px 10px; border-radius:6px; font-size:13px; line-height:1.2; position:relative; overflow:hidden; font-family:system-ui, -apple-system, "Segoe UI", sans-serif; }
 			#callMyDoctors .cmd-fomo .cmd-ico{ width:15px; height:15px; flex-shrink:0; display:inline-block; vertical-align:middle; }
 			#callMyDoctors .cmd-fomo::after{ content:""; position:absolute; top:-20%; bottom:-20%; left:0; width:55%; transform:translateX(-130%) skewX(-18deg); background:linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.35) 30%, rgba(255,255,255,.95) 50%, rgba(255,255,255,.35) 70%, rgba(255,255,255,0) 100%); animation:cmdShimmer 4.5s cubic-bezier(.4,0,.2,1) infinite; pointer-events:none; }
 			@keyframes cmdShimmer{ 0%{ transform:translateX(-130%) skewX(-18deg); } 55%{ transform:translateX(330%) skewX(-18deg); } 100%{ transform:translateX(330%) skewX(-18deg); } }

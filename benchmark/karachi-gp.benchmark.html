@@ -4841,6 +4841,8 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
 #mhFilters .mh-clear:hover{ color:#004d71; border-color:#004d71; }
 #mhFilters .mh-clear.show{ display:inline-flex; }
 #mhFilters .mh-nores{ display:none; margin:4px 2px 10px; padding:12px 16px; border:1px dashed #004d71; border-radius:10px; color:#004d71; font-size:14px; background:#f2f8fb; }
+/* hide the areas-of-interest chips row inside doctor cards */
+.row.shadow-card .col-12.horizontal-scroll.smart-bar.mb-10{ display:none !important; }
 </style>
 <div class="container mb-0" id="mhFilters">
     <div class="mh-chips" id="mhChips">
@@ -4949,7 +4951,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
 			#callMyDoctors .cmd-affordable{ background:#ffffff; border:1px solid #E7EAEE; border-radius:16px; padding:24px; box-shadow:5px 5px 16px 5px rgba(0,0,0,0.1); }
 			#callMyDoctors .cmd-title{ margin:0; font-size:22px; font-weight:600; color:#16384a; line-height:1.25; }
 			#callMyDoctors .cmd-sub{ margin:6px 0 20px; font-size:14px; font-weight:400; color:#4a5a68; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-			#callMyDoctors .cmd-fomo{ display:inline-flex; align-items:center; gap:6px; background:#fdecea; color:#d32f2f; font-weight:600; padding:4px 10px; border-radius:6px; font-size:13px; line-height:1.2; position:relative; overflow:hidden; }
+			#callMyDoctors .cmd-fomo{ display:inline-flex; align-items:center; gap:6px; background:#fdecea; color:#d32f2f; font-weight:600; padding:4px 10px; border-radius:6px; font-size:13px; line-height:1.2; position:relative; overflow:hidden; font-family:system-ui, -apple-system, "Segoe UI", sans-serif; }
 			#callMyDoctors .cmd-fomo .cmd-ico{ width:15px; height:15px; flex-shrink:0; display:inline-block; vertical-align:middle; }
 			#callMyDoctors .cmd-fomo::after{ content:""; position:absolute; top:-20%; bottom:-20%; left:0; width:55%; transform:translateX(-130%) skewX(-18deg); background:linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.35) 30%, rgba(255,255,255,.95) 50%, rgba(255,255,255,.35) 70%, rgba(255,255,255,0) 100%); animation:cmdShimmer 4.5s cubic-bezier(.4,0,.2,1) infinite; pointer-events:none; }
 			@keyframes cmdShimmer{ 0%{ transform:translateX(-130%) skewX(-18deg); } 55%{ transform:translateX(330%) skewX(-18deg); } 100%{ transform:translateX(330%) skewX(-18deg); } }
@@ -4983,6 +4985,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
 				</div>
 			</div>
 <!-- CMD_SECTION_END -->
+
 
 
 

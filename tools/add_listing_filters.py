@@ -37,6 +37,8 @@ TEMPLATE = START + '''
 #mhFilters .mh-clear:hover{ color:#004d71; border-color:#004d71; }
 #mhFilters .mh-clear.show{ display:inline-flex; }
 #mhFilters .mh-nores{ display:none; margin:4px 2px 10px; padding:12px 16px; border:1px dashed #004d71; border-radius:10px; color:#004d71; font-size:14px; background:#f2f8fb; }
+/* hide the areas-of-interest chips row inside doctor cards */
+.row.shadow-card .col-12.horizontal-scroll.smart-bar.mb-10{ display:none !important; }
 </style>
 <div class="container mb-0" id="mhFilters">
     <div class="mh-chips" id="mhChips">

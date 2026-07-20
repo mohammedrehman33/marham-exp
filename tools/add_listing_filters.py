@@ -37,7 +37,7 @@ TEMPLATE = START + '''
 #mhFilters .mh-car-btn.left{ left:-8px; }
 #mhFilters .mh-car-btn.right{ right:-8px; }
 #mhFilters .mh-car-btn.off{ display:none; }
-@media (max-width:768px){ #mhFilters .mh-car-btn{ display:none; } }
+@media (max-width:768px){ #mhFilters .mh-car-btn{ width:28px; height:28px; } #mhFilters .mh-car-btn svg{ width:13px; height:13px; } #mhFilters .mh-car-btn.left{ left:-4px; } #mhFilters .mh-car-btn.right{ right:-4px; } }
 #mhFilters .mh-chip{ display:inline-flex; align-items:center; white-space:nowrap; padding:6px 14px; border:1px solid #004d71; border-radius:999px; background:#fff; color:#004d71; font-weight:400; font-size:13px; line-height:1.2; cursor:pointer; user-select:none; transition:background .15s,color .15s,box-shadow .15s; }
 #mhFilters .mh-chip:hover{ box-shadow:0 1px 6px rgba(0,77,113,.25); }
 #mhFilters .mh-chip.active{ background:#004d71; color:#fff; }
@@ -59,10 +59,10 @@ TEMPLATE = START + '''
         <span class="mh-chip" data-kind="sort" data-key="rated">Highest Rated</span>
         <span class="mh-chip" data-kind="toggle" data-key="avail">Available Today</span>
         <span class="mh-chip" data-kind="toggle" data-key="video">Video Consultation</span>
-    </div>
+{interest_chips}    </div>
     <button type="button" class="mh-car-btn right off" aria-label="Scroll right"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
     </div>
-{interest_row}    <div class="mh-nores" id="mhNoRes">No doctors match the selected filters. Tap a filter again to remove it.</div>
+    <div class="mh-nores" id="mhNoRes">No doctors match the selected filters. Tap a filter again to remove it.</div>
 </div>
 <script>
 (function(){
@@ -185,17 +185,10 @@ def main():
     ids = [s.strip() for s in a.female_ids.split(",") if s.strip()]
     interests = [s.strip() for s in a.interests.split(",") if s.strip()]
     import html as _html
-    interest_row = ""
-    if interests:
-        arrow_l = ('    <button type="button" class="mh-car-btn left off" aria-label="Scroll left"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>\n')
-        arrow_r = ('    <button type="button" class="mh-car-btn right off" aria-label="Scroll right"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>\n')
-        chips = "".join('        <span class="mh-chip" data-kind="interest" data-key="%s">%s</span>\n'
-                        % (_html.escape(x, quote=True), _html.escape(x)) for x in interests)
-        interest_row = ('    <div class="mh-car">\n' + arrow_l +
-                        '    <div class="mh-chips" id="mhInterests">\n' + chips + '    </div>\n' +
-                        arrow_r + '    </div>\n')
+    interest_chips = "".join('        <span class="mh-chip" data-kind="interest" data-key="%s">%s</span>\n'
+                             % (_html.escape(x, quote=True), _html.escape(x)) for x in interests)
     block = (TEMPLATE.replace("{__FEMALE_IDS__}", "[" + ",".join('"%s"' % i for i in ids) + "]")
-                     .replace("{interest_row}", interest_row).replace("\n", nl))
+                     .replace("{interest_chips}", interest_chips).replace("\n", nl))
 
     if START in doc and END in doc:
         doc = re.sub(re.escape(START) + r".*?" + re.escape(END) + r"\r?\n?", lambda m: block, doc, flags=re.S)

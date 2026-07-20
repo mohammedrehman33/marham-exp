@@ -44,6 +44,9 @@ STYLE = '''			<style>
 			#callMyDoctors .cmd-avail .dot{ width:8px; height:8px; border-radius:50%; background:#1aa260; display:inline-block; flex-shrink:0; }
 			#callMyDoctors .cmd-fee{ font-size:14px; font-weight:600; color:#1b2a3a; }
 			#callMyDoctors .cmd-stats{ display:flex; align-items:center; gap:16px; margin:14px 0; font-size:12px; }
+			#callMyDoctors .cmd-rev{ margin:0 0 12px; font-size:12px; color:#4a5a68; background:#f5fbfc; border-left:2px solid #2BB3A3; padding:7px 10px; border-radius:0 8px 8px 0; line-height:1.5; }
+			#callMyDoctors .cmd-rev .rv-stars{ color:#f5a623; font-size:11px; letter-spacing:1.5px; margin-right:4px; }
+			#callMyDoctors .cmd-rev .rv-q{ font-style:italic; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-top:2px; }
 			#callMyDoctors .cmd-reviews{ color:#b4641d; font-weight:500; display:flex; align-items:center; gap:5px; }
 			#callMyDoctors .cmd-reviews .star{ color:#f5a623; font-size:13px; }
 			#callMyDoctors .cmd-exp{ color:#7a8a99; }
@@ -148,7 +151,8 @@ def build_section(docs, disease, fomo_note, price=None, badge="FLAT 30% OFF on L
                   f'<div class="cmd-avail"><span class="dot"></span> Available Today</div>'
                   f'<div class="cmd-fee">{fee}</div></div></div>'
                   f'<div class="cmd-stats">{rev}{exp}</div>'
-                  f'<a class="cmd-book instant_doctor_call_now_btn_clicked" href="{book}" data-url="{book}">Book Appointment</a></div>')
+                  + (f'<div class="cmd-rev" dir="auto"><span class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rv-v">Verified Patient</span><div class="rv-q">&ldquo;{html.escape(d["review"])}&rdquo;</div></div>' if d.get("review") else "")
+                  + f'<a class="cmd-book instant_doctor_call_now_btn_clicked" href="{book}" data-url="{book}">Book Appointment</a></div>')
     section = (CMD_START + "\n" + STYLE +
                f'''			<div class="container mt-10" id="callMyDoctors">
 				<div class="cmd-affordable" id="cmdPanel">

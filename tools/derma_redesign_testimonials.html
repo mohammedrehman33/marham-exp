@@ -1,0 +1,37 @@
+<section class="mr-section mr-testimonials" style="max-width:1200px;margin:0 auto;padding:64px 32px 0">
+<div class="mr-sec-head" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
+<div>
+<div class="mr-eyebrow">What patients say</div>
+<h2 class="mr-sec-title" style="font-size:32px;line-height:1.15;font-weight:800;letter-spacing:-.025em;color:var(--mr-heading);margin:8px 0 0">Reviews from patients treated in Karachi</h2>
+<p class="mr-sec-sub" style="font-size:16px;color:var(--mr-text-muted);margin:8px 0 0">Left only by patients who booked the appointment through Marham and attended it.</p>
+</div>
+<div class="mr-testi-score" style="display:flex;align-items:center;gap:14px;background:var(--mr-success-bg);border-radius:var(--mr-radius-xl);padding:14px 20px">
+<div style="font-size:30px;font-weight:800;letter-spacing:-.02em;color:var(--mr-success);line-height:1">4.8</div>
+<div style="font-size:13.5px;font-weight:700;color:var(--mr-text);line-height:1.35">out of 5<br><span style="color:var(--mr-text-muted);font-weight:600">across 12,400+ verified reviews</span></div>
+</div>
+</div>
+<div class="mr-testi-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:22px;margin-top:28px">
+<sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="6">
+<article class="mr-testi-card" style="display:flex;flex-direction:column;border:1px solid var(--mr-gray-200);border-radius:var(--mr-radius-2xl);background:#fff;box-shadow:var(--mr-shadow-sm);padding:24px">
+<div style="display:flex;align-items:center;gap:8px">
+<span style="color:#F5A524;font-size:15px;letter-spacing:2px">{{ t.stars }}</span>
+<span style="font-size:13px;font-weight:700;color:var(--mr-text-muted)">{{ t.rating }}</span>
+</div>
+<span class="mr-label-pill" style="align-self:flex-start;margin-top:14px">{{ t.concern }}</span>
+<p class="mr-testi-quote" style="font-size:15.5px;line-height:1.65;color:var(--mr-text);margin:14px 0 0;text-wrap:pretty">“{{ t.quote }}”</p>
+<div style="display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:20px">
+<div class="mr-testi-avatar" style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:var(--mr-primary-25);flex:none">
+<image-slot id="{{ t.slot }}" shape="circle" placeholder="{{ t.initials }}"></image-slot>
+</div>
+<div style="min-width:0">
+<div style="font-size:14.5px;font-weight:700;color:var(--mr-heading);line-height:1.3">{{ t.name }}</div>
+<div style="font-size:12.5px;color:var(--mr-text-muted);font-weight:600">{{ t.area }}</div>
+</div>
+</div>
+<div style="font-size:12.5px;color:var(--mr-text-subtle);margin-top:14px;padding-top:12px;border-top:1px solid var(--mr-gray-100)">Consulted {{ t.doctor }} · {{ t.when }}</div>
+</article>
+</sc-for>
+</div>
+<p style="font-size:12.5px;color:var(--mr-text-subtle);margin:16px 0 0;max-width:80ch">Reviews are published with the patient's consent. Marham does not edit review text or remove negative reviews, and a doctor cannot pay to have a review taken down.</p>
+</section>
+

@@ -316,7 +316,7 @@ a:hover{color:var(--mr-primary-500)}
    ============================================================ */
 
 img, svg, image-slot { max-width: 100%; }
-.mr-hero-title, .mr-sec-title, .mr-faq-title { overflow-wrap: break-word; }
+.mr-sec-title, .mr-faq-title { overflow-wrap: break-word; }
 .mr-nav { scrollbar-width: none; }
 .mr-nav::-webkit-scrollbar { display: none; }
 
@@ -324,22 +324,15 @@ img, svg, image-slot { max-width: 100%; }
 @media (max-width: 1200px) {
   .mr-section,
   .mr-header-inner,
-  .mr-hero-grid,
   .mr-note-grid,
   .mr-footer-inner { padding-left: 24px !important; padding-right: 24px !important; }
 }
 
 /* ---------- <=992px — tablet: the two-column blocks collapse ---------- */
 @media (max-width: 992px) {
-  .mr-hero-grid   { grid-template-columns: minmax(0,1fr) !important; gap: 34px !important;
-                    padding-top: 44px !important; padding-bottom: 40px !important; }
-  .mr-hero-title  { font-size: clamp(32px, 5.4vw, 46px) !important; }
-  .mr-hero-sub    { font-size: 17px !important; max-width: none !important; }
-  .mr-hero-frame  { height: min(66vw, 400px) !important; }
-  .mr-hero-float  { left: 14px !important; bottom: 14px !important; padding: 11px 14px !important; }
-  .mr-note-grid   { grid-template-columns: minmax(0,1fr) !important; gap: 18px !important; }
-  .mr-sec-title   { font-size: 27px !important; }
-  .mr-doc-card    { width: min(392px, 78vw) !important; }
+  .mr-note-grid { grid-template-columns: minmax(0,1fr) !important; gap: 18px !important; }
+  .mr-sec-title { font-size: 27px !important; }
+  .mr-doc-card  { width: min(392px, 78vw) !important; }
 }
 
 /* ---------- <=768px — phone/landscape: header reflows, gutters shrink ---------- */
@@ -357,7 +350,6 @@ img, svg, image-slot { max-width: 100%; }
   #concern-results, #doctor-list { scroll-margin-top: 104px !important; }
 
   .mr-section,
-  .mr-hero-grid,
   .mr-note-grid,
   .mr-footer-inner { padding-left: 16px !important; padding-right: 16px !important; }
   .mr-section      { padding-top: 40px !important; }
@@ -369,18 +361,12 @@ img, svg, image-slot { max-width: 100%; }
   .mr-stories-head { gap: 16px !important; }
   .mr-story-media  { height: 220px !important; }
   .mr-doc-card     { width: min(392px, 84vw) !important; }
+  .mr-testi-card   { padding: 20px !important; }
   .mr-footer-inner { gap: 18px !important; padding-top: 28px !important; padding-bottom: 28px !important; }
 }
 
 /* ---------- <=576px — phone/portrait ---------- */
 @media (max-width: 576px) {
-  .mr-hero-badge   { flex-wrap: wrap; font-size: 11.5px !important; padding: 6px 12px 6px 7px !important; }
-  .mr-hero-badge span:last-child { font-size: 11.5px !important; }
-  .mr-hero-title   { font-size: clamp(27px, 7.6vw, 34px) !important; }
-  .mr-hero-sub     { font-size: 15.5px !important; }
-  .mr-hero-frame   { height: min(84vw, 330px) !important; }
-  .mr-hero-float   { left: 10px !important; right: 10px !important; bottom: 10px !important; }
-
   .mr-sec-title    { font-size: 22px !important; }
   .mr-sec-sub      { font-size: 14.5px !important; }
   .mr-faq-title    { font-size: 20px !important; }
@@ -399,6 +385,11 @@ img, svg, image-slot { max-width: 100%; }
   .mr-stories-stat { width: 100%; padding: 12px 16px !important; }
   .mr-stories-stat span:last-child { max-width: none !important; }
 
+  .mr-testi-grid   { grid-template-columns: minmax(0,1fr) !important; gap: 14px !important; }
+  .mr-testi-card   { padding: 18px !important; }
+  .mr-testi-quote  { font-size: 15px !important; }
+  .mr-testi-score  { width: 100%; padding: 12px 16px !important; }
+
   .seo-prose h2    { font-size: 22px !important; }
   .seo-prose h3    { font-size: 18px !important; margin-top: 26px !important; }
   .seo-prose p,
@@ -411,9 +402,6 @@ img, svg, image-slot { max-width: 100%; }
 
 /* ---------- <=380px — small phones ---------- */
 @media (max-width: 380px) {
-  /* Keep the trust badge on one line instead of orphaning the tick mark */
-  .mr-hero-badge   { font-size: 11px !important; gap: 6px !important; padding: 5px 10px 5px 6px !important; }
-  .mr-hero-badge span:last-child { font-size: 11px !important; }
   .mr-concern-grid { grid-template-columns: minmax(0,1fr) !important; }
   .mr-concern-tile { height: 140px !important; }
   .mr-doc-card     { width: 88vw !important; }
@@ -433,7 +421,7 @@ img, svg, image-slot { max-width: 100%; }
 <div style="font-size:19px;font-weight:700;margin-top:6px;letter-spacing:-.01em">Hybrid: skinnsi energy on top, your directory untouched below</div>
 </div>
 <div class="mr-note-cols" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;font-size:13px;line-height:1.6;color:rgba(255,255,255,.72)">
-<div><strong style="color:#fff;display:block;margin-bottom:4px">What I added</strong>A concern-led hero, a skin-concern tile row that filters into real Marham disease pages, free AI skin analysis, and three honest ways to consult.</div>
+<div><strong style="color:#fff;display:block;margin-bottom:4px">What I added</strong>The page now opens straight on the skin-concern tile row, which filters into real Marham disease pages, plus before/after results and verified patient reviews.</div>
 <div><strong style="color:#fff;display:block;margin-bottom:4px">What I protected</strong>Every doctor card, filter, About/FAQ word and link block below is unchanged — no SEO surface was cut or collapsed.</div>
 <div><strong style="color:#fff;display:block;margin-bottom:4px">What I refused to copy</strong>skinnsi's fixed-price packages and trial offers. Marham brokers independent doctors, so the page sells consults, fees and discounts you can actually honour.</div>
 </div>
@@ -460,32 +448,6 @@ img, svg, image-slot { max-width: 100%; }
 </div>
 </header>
 
-<section class="mr-hero" style="background:var(--hero-bg,linear-gradient(160deg,#EAF7F9 0%,#F6FBFC 46%,#FFFFFF 100%));border-bottom:1px solid var(--mr-gray-200)">
-<div class="mr-hero-grid" style="max-width:1200px;margin:0 auto;padding:56px 32px 48px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:56px;align-items:center">
-<div>
-<div class="mr-hero-badge" style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--mr-primary-25);border-radius:var(--mr-radius-full);padding:6px 14px 6px 8px;box-shadow:var(--mr-shadow-sm)">
-<span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--mr-success-bg);color:var(--mr-success);font-size:12px;font-weight:700">✓</span>
-<span style="font-size:12.5px;font-weight:700;color:var(--mr-primary);letter-spacing:.01em">440 PMDC-verified dermatologists in Karachi</span>
-</div>
-<h1 class="mr-hero-title" style="font-size:52px;line-height:1.08;font-weight:800;letter-spacing:-.03em;color:var(--hero-ink,var(--mr-primary-500));margin:20px 0 0;text-wrap:balance">Start with the skin problem.<br>We'll find the skin doctor.</h1>
-<p class="mr-hero-sub" style="font-size:18.5px;line-height:1.6;color:var(--mr-text);margin:18px 0 0;max-width:52ch;text-wrap:pretty">Acne, hair fall, melasma, eczema — pick what's bothering you and see verified dermatologists in Karachi who treat it, with real fees and today's availability.</p>
-
-
-</div>
-<div class="mr-hero-media" style="position:relative">
-<div class="mr-hero-frame" style="position:relative;height:430px;border-radius:var(--mr-radius-3xl);overflow:hidden;box-shadow:var(--mr-shadow-xl)">
-<image-slot id="derma-hero" shape="rect" placeholder="Hero — Pakistani woman, clear skin, natural light (3:4 crop)"></image-slot>
-</div>
-<div class="mr-hero-float" style="position:absolute;left:-26px;bottom:34px;background:#fff;border-radius:var(--mr-radius-2xl);box-shadow:var(--mr-shadow-lg);padding:14px 18px;display:flex;align-items:center;gap:12px;border:1px solid var(--mr-gray-200)">
-<div style="width:40px;height:40px;border-radius:50%;overflow:hidden;flex:none"><image-slot id="derma-hero-avatar" shape="circle" placeholder="Dr."></image-slot></div>
-<div>
-<div style="font-size:14px;font-weight:700;color:var(--mr-heading)">Dr. Zafar Ahmed</div>
-<div style="font-size:12.5px;color:var(--mr-text-muted);font-weight:600">96% satisfaction · 3,263 reviews</div>
-</div>
-</div>
-</div>
-</div>
-</section>
 
 <section class="mr-section" style="max-width:1200px;margin:0 auto;padding:56px 32px 8px">
 <div class="mr-sec-head" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
@@ -633,6 +595,43 @@ img, svg, image-slot { max-width: 100%; }
 </sc-for>
 </div>
 <p style="font-size:12.5px;color:var(--mr-text-subtle);margin:16px 0 0;max-width:80ch">Photos shared by patients with their consent. Results depend on your skin, the condition and how closely the treatment plan is followed — your dermatologist will tell you what to expect.</p>
+</section>
+
+<section class="mr-section mr-testimonials" style="max-width:1200px;margin:0 auto;padding:64px 32px 0">
+<div class="mr-sec-head" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
+<div>
+<div class="mr-eyebrow">What patients say</div>
+<h2 class="mr-sec-title" style="font-size:32px;line-height:1.15;font-weight:800;letter-spacing:-.025em;color:var(--mr-heading);margin:8px 0 0">Reviews from patients treated in Karachi</h2>
+<p class="mr-sec-sub" style="font-size:16px;color:var(--mr-text-muted);margin:8px 0 0">Left only by patients who booked the appointment through Marham and attended it.</p>
+</div>
+<div class="mr-testi-score" style="display:flex;align-items:center;gap:14px;background:var(--mr-success-bg);border-radius:var(--mr-radius-xl);padding:14px 20px">
+<div style="font-size:30px;font-weight:800;letter-spacing:-.02em;color:var(--mr-success);line-height:1">4.8</div>
+<div style="font-size:13.5px;font-weight:700;color:var(--mr-text);line-height:1.35">out of 5<br><span style="color:var(--mr-text-muted);font-weight:600">across 12,400+ verified reviews</span></div>
+</div>
+</div>
+<div class="mr-testi-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:22px;margin-top:28px">
+<sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="6">
+<article class="mr-testi-card" style="display:flex;flex-direction:column;border:1px solid var(--mr-gray-200);border-radius:var(--mr-radius-2xl);background:#fff;box-shadow:var(--mr-shadow-sm);padding:24px">
+<div style="display:flex;align-items:center;gap:8px">
+<span style="color:#F5A524;font-size:15px;letter-spacing:2px">{{ t.stars }}</span>
+<span style="font-size:13px;font-weight:700;color:var(--mr-text-muted)">{{ t.rating }}</span>
+</div>
+<span class="mr-label-pill" style="align-self:flex-start;margin-top:14px">{{ t.concern }}</span>
+<p class="mr-testi-quote" style="font-size:15.5px;line-height:1.65;color:var(--mr-text);margin:14px 0 0;text-wrap:pretty">“{{ t.quote }}”</p>
+<div style="display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:20px">
+<div class="mr-testi-avatar" style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:var(--mr-primary-25);flex:none">
+<image-slot id="{{ t.slot }}" shape="circle" placeholder="{{ t.initials }}"></image-slot>
+</div>
+<div style="min-width:0">
+<div style="font-size:14.5px;font-weight:700;color:var(--mr-heading);line-height:1.3">{{ t.name }}</div>
+<div style="font-size:12.5px;color:var(--mr-text-muted);font-weight:600">{{ t.area }}</div>
+</div>
+</div>
+<div style="font-size:12.5px;color:var(--mr-text-subtle);margin-top:14px;padding-top:12px;border-top:1px solid var(--mr-gray-100)">Consulted {{ t.doctor }} · {{ t.when }}</div>
+</article>
+</sc-for>
+</div>
+<p style="font-size:12.5px;color:var(--mr-text-subtle);margin:16px 0 0;max-width:80ch">Reviews are published with the patient's consent. Marham does not edit review text or remove negative reviews, and a doctor cannot pay to have a review taken down.</p>
 </section>
 
 <div class="seo-prose mr-section" style="max-width:1200px;margin:0 auto;padding:60px 32px 0">
@@ -849,25 +848,9 @@ img, svg, image-slot { max-width: 100%; }
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script="" data-props="{&quot;showDesignNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Review&quot;},&quot;showSkinAnalysis&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;heroTone&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Sky wash&quot;,&quot;Deep blue&quot;,&quot;Clean white&quot;],&quot;default&quot;:&quot;Sky wash&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;}}">
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;showDesignNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Review&quot;},&quot;showSkinAnalysis&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
 class Component extends DCLogic {
   state = { photoUrl: null, concern: null, matched: false, filters: {}, selectedConcern: null };
-
-  componentDidMount() { this.applyTheme(); }
-  componentDidUpdate() { this.applyTheme(); }
-
-  applyTheme() {
-    const tone = this.props.heroTone ?? "Sky wash";
-    const map = {
-      "Sky wash": ["linear-gradient(160deg,#EAF7F9 0%,#F6FBFC 46%,#FFFFFF 100%)", "var(--mr-primary-500)"],
-      "Deep blue": ["linear-gradient(150deg,#00304A 0%,#00507A 60%,#0B6A93 100%)", "#FFFFFF"],
-      "Clean white": ["#FFFFFF", "var(--mr-primary-500)"]
-    };
-    const [bg, ink] = map[tone] || map["Sky wash"];
-    const root = document.documentElement;
-    root.style.setProperty("--hero-bg", bg);
-    root.style.setProperty("--hero-ink", ink);
-  }
 
   chip(label, active) {
     return active
@@ -1017,6 +1000,33 @@ class Component extends DCLogic {
       ],
 
 
+
+      testimonials: [
+        { slot: "t-ayesha", initials: "AS", name: "Ayesha Siddiqui", area: "Gulshan-e-Iqbal, Karachi",
+          concern: "Acne & acne scars", stars: "★★★★★", rating: "5.0",
+          doctor: "Dr. Zafar Ahmed", when: "3 weeks ago",
+          quote: "I had been swapping creams on my own for almost two years. He checked my skin type first, put me on a proper course and told me exactly what each medicine was doing. The marks started fading by the second month." },
+        { slot: "t-bilal", initials: "MB", name: "Muhammad Bilal", area: "North Nazimabad, Karachi",
+          concern: "Hair fall & alopecia", stars: "★★★★★", rating: "4.8",
+          doctor: "Dr. Shamail Zia", when: "1 month ago",
+          quote: "He did not push me straight into a transplant. He ran the blood tests first, found the deficiency, and started PRP only after that. Honest about how long it would take, which I appreciated." },
+        { slot: "t-hina", initials: "HR", name: "Hina Raza", area: "DHA Phase 6, Karachi",
+          concern: "Melasma & dark spots", stars: "★★★★☆", rating: "4.5",
+          doctor: "Dr. Anita Kazi", when: "2 months ago",
+          quote: "The pigmentation on my cheeks had not moved in years. Four sessions in, it is noticeably lighter. She was clear that melasma comes back if I skip sunscreen, so I knew what I was signing up for." },
+        { slot: "t-sana", initials: "SK", name: "Sana Khalid", area: "Bahadarabad, Karachi",
+          concern: "Eczema & dermatitis", stars: "★★★★★", rating: "5.0",
+          doctor: "Dr. Saima", when: "5 weeks ago",
+          quote: "Booked the video consultation because my son's rash flared at night and I could not get out. She saw it on camera, prescribed there and then, and followed up after four days. Rs. 300 well spent." },
+        { slot: "t-faisal", initials: "FM", name: "Faisal Mehmood", area: "Clifton, Karachi",
+          concern: "Warts & mole removal", stars: "★★★★★", rating: "4.9",
+          doctor: "Dr. Anita Kazi", when: "6 weeks ago",
+          quote: "Two moles removed in one sitting. She explained which one needed to be sent for testing and why, instead of just taking them off. Healed clean, barely any mark left now." },
+        { slot: "t-rabia", initials: "RN", name: "Rabia Noor", area: "PECHS, Karachi",
+          concern: "Laser hair removal", stars: "★★★★☆", rating: "4.6",
+          doctor: "Dr. Shamail Zia", when: "2 months ago",
+          quote: "The clinic told me upfront it would take six sessions rather than promising results in two, and the per-session fee was exactly what was quoted on Marham. No surprise charges at the counter." }
+      ],
 
       stories: [
         { slotBefore: "ba-acne-b", slotAfter: "ba-acne-a", afterLabel: "After 6 months", treatment: "Acne & acne scars", duration: "6 months · 4 follow-ups" },

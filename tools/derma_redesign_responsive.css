@@ -8,7 +8,7 @@
    ============================================================ */
 
 img, svg, image-slot { max-width: 100%; }
-.mr-hero-title, .mr-sec-title, .mr-faq-title { overflow-wrap: break-word; }
+.mr-sec-title, .mr-faq-title { overflow-wrap: break-word; }
 .mr-nav { scrollbar-width: none; }
 .mr-nav::-webkit-scrollbar { display: none; }
 
@@ -16,22 +16,15 @@ img, svg, image-slot { max-width: 100%; }
 @media (max-width: 1200px) {
   .mr-section,
   .mr-header-inner,
-  .mr-hero-grid,
   .mr-note-grid,
   .mr-footer-inner { padding-left: 24px !important; padding-right: 24px !important; }
 }
 
 /* ---------- <=992px — tablet: the two-column blocks collapse ---------- */
 @media (max-width: 992px) {
-  .mr-hero-grid   { grid-template-columns: minmax(0,1fr) !important; gap: 34px !important;
-                    padding-top: 44px !important; padding-bottom: 40px !important; }
-  .mr-hero-title  { font-size: clamp(32px, 5.4vw, 46px) !important; }
-  .mr-hero-sub    { font-size: 17px !important; max-width: none !important; }
-  .mr-hero-frame  { height: min(66vw, 400px) !important; }
-  .mr-hero-float  { left: 14px !important; bottom: 14px !important; padding: 11px 14px !important; }
-  .mr-note-grid   { grid-template-columns: minmax(0,1fr) !important; gap: 18px !important; }
-  .mr-sec-title   { font-size: 27px !important; }
-  .mr-doc-card    { width: min(392px, 78vw) !important; }
+  .mr-note-grid { grid-template-columns: minmax(0,1fr) !important; gap: 18px !important; }
+  .mr-sec-title { font-size: 27px !important; }
+  .mr-doc-card  { width: min(392px, 78vw) !important; }
 }
 
 /* ---------- <=768px — phone/landscape: header reflows, gutters shrink ---------- */
@@ -49,7 +42,6 @@ img, svg, image-slot { max-width: 100%; }
   #concern-results, #doctor-list { scroll-margin-top: 104px !important; }
 
   .mr-section,
-  .mr-hero-grid,
   .mr-note-grid,
   .mr-footer-inner { padding-left: 16px !important; padding-right: 16px !important; }
   .mr-section      { padding-top: 40px !important; }
@@ -61,18 +53,12 @@ img, svg, image-slot { max-width: 100%; }
   .mr-stories-head { gap: 16px !important; }
   .mr-story-media  { height: 220px !important; }
   .mr-doc-card     { width: min(392px, 84vw) !important; }
+  .mr-testi-card   { padding: 20px !important; }
   .mr-footer-inner { gap: 18px !important; padding-top: 28px !important; padding-bottom: 28px !important; }
 }
 
 /* ---------- <=576px — phone/portrait ---------- */
 @media (max-width: 576px) {
-  .mr-hero-badge   { flex-wrap: wrap; font-size: 11.5px !important; padding: 6px 12px 6px 7px !important; }
-  .mr-hero-badge span:last-child { font-size: 11.5px !important; }
-  .mr-hero-title   { font-size: clamp(27px, 7.6vw, 34px) !important; }
-  .mr-hero-sub     { font-size: 15.5px !important; }
-  .mr-hero-frame   { height: min(84vw, 330px) !important; }
-  .mr-hero-float   { left: 10px !important; right: 10px !important; bottom: 10px !important; }
-
   .mr-sec-title    { font-size: 22px !important; }
   .mr-sec-sub      { font-size: 14.5px !important; }
   .mr-faq-title    { font-size: 20px !important; }
@@ -91,6 +77,11 @@ img, svg, image-slot { max-width: 100%; }
   .mr-stories-stat { width: 100%; padding: 12px 16px !important; }
   .mr-stories-stat span:last-child { max-width: none !important; }
 
+  .mr-testi-grid   { grid-template-columns: minmax(0,1fr) !important; gap: 14px !important; }
+  .mr-testi-card   { padding: 18px !important; }
+  .mr-testi-quote  { font-size: 15px !important; }
+  .mr-testi-score  { width: 100%; padding: 12px 16px !important; }
+
   .seo-prose h2    { font-size: 22px !important; }
   .seo-prose h3    { font-size: 18px !important; margin-top: 26px !important; }
   .seo-prose p,
@@ -103,9 +94,6 @@ img, svg, image-slot { max-width: 100%; }
 
 /* ---------- <=380px — small phones ---------- */
 @media (max-width: 380px) {
-  /* Keep the trust badge on one line instead of orphaning the tick mark */
-  .mr-hero-badge   { font-size: 11px !important; gap: 6px !important; padding: 5px 10px 5px 6px !important; }
-  .mr-hero-badge span:last-child { font-size: 11px !important; }
   .mr-concern-grid { grid-template-columns: minmax(0,1fr) !important; }
   .mr-concern-tile { height: 140px !important; }
   .mr-doc-card     { width: 88vw !important; }

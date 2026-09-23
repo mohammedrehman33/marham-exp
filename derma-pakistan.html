@@ -4960,7 +4960,12 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
             .cz-card.is-active .cz-tile { box-shadow: 0 0 0 3px #00507A, 0 10px 22px rgba(0, 80, 122, .18); transform: translateY(-4px); }
             .cz-card.is-active .cz-label { font-weight: 800; }
             .cz-tile { transition: box-shadow 160ms ease, transform 160ms ease; }
+            .cxa-backdrop { position: fixed; inset: 0; background: rgba(16, 24, 40, .6); z-index: 30010; opacity: 0; transition: opacity 200ms ease; }
+            .cxa-backdrop.is-on { opacity: 1; }
+            .cxa-backdrop[hidden] { display: none; }
+            .cx-band--concern.is-spotlit { position: relative; z-index: 30011; background: #fff; box-shadow: 0 18px 50px rgba(16, 24, 40, .35); }
         </style>
+        <div class="cxa-backdrop" hidden></div>
         <section class="cx-band cx-band--concern" id="concern-panel" aria-labelledby="cxa-title" aria-live="polite" hidden>
             <div class="container mb-0">
                 <div class="cxa-head">
@@ -5232,14 +5237,23 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                         sub.textContent = 'Top Booked dermatologists for ' + d.t.charAt(0).toLowerCase() + d.t.slice(1) + '.';
                         list.innerHTML = '';
                         d.d.forEach(function (n) { var c = cardFor(n); if (c) list.appendChild(c); });
-                        setActive(tile); panel.hidden = false;
+                        setActive(tile); panel.hidden = false; spot(true);
                         panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     });
                 });
-                panel.querySelector('.cxa-close').addEventListener('click', function () {
+                var backdrop = document.querySelector('.cxa-backdrop');
+                function spot(on) {
+                    panel.classList.toggle('is-spotlit', on); backdrop.hidden = !on;
+                    requestAnimationFrame(function () { backdrop.classList.toggle('is-on', on); });
+                }
+                function closePanel() {
+                    if (panel.hidden) return;
                     var active = document.querySelector('.cz-card.is-active');
-                    panel.hidden = true; setActive(null); if (active) active.focus();
-                });
+                    panel.hidden = true; spot(false); setActive(null); if (active) active.focus();
+                }
+                panel.querySelector('.cxa-close').addEventListener('click', closePanel);
+                backdrop.addEventListener('click', closePanel);
+                document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePanel(); });
             })();
         </script>
         <!--before/after results (photos pending: add <img alt="..."> inside .bx-before / .bx-after; it covers the placeholder)-->

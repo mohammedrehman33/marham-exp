@@ -5122,6 +5122,103 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                 </div>
             </div>
         </section>
+        <!--before/after results (photos pending: drop an <img> into .bx-before / .bx-after)-->
+        <style>
+            .bx-band { background: #F9FAFB; font-family: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif; padding: 36px 0 40px; }
+            .bx-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+            .bx-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #00507A; }
+            .bx-band h2.bx-title { font-family: inherit; font-size: 32px; line-height: 1.15; font-weight: 800; letter-spacing: -.025em; color: #3A3A3A; margin: 8px 0 0; padding: 0; max-width: 20ch; text-wrap: balance; }
+            .bx-stat { display: flex; align-items: center; gap: 10px; background: #ECF4FF; border-radius: 12px; padding: 14px 20px; }
+            .bx-stat-icon { color: #0A77FF; font-size: 17px; line-height: 1; }
+            .bx-stat-text { font-size: 15px; font-weight: 600; line-height: 1.35; color: #00507A; max-width: 16ch; }
+            .bx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-top: 28px; }
+            .bx-card { border: 1px solid #EAEBF0; border-radius: 16px; background: #fff; box-shadow: 0 1px 2px 0 rgba(16,24,40,.05); overflow: hidden; }
+            .bx-media { position: relative; height: 248px; background: #DFE3E7; }
+            .bx-before, .bx-after { position: absolute; inset: 0; }
+            .bx-after { background: #D5DADF; clip-path: polygon(52% 0, 100% 0, 100% 100%, 42% 100%); }
+            .bx-before img, .bx-after img { width: 100%; height: 100%; object-fit: cover; display: block; }
+            .bx-ph { position: absolute; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: #7C8894; font-size: 14px; font-weight: 500; white-space: nowrap; }
+            .bx-before .bx-ph { left: 23%; }
+            .bx-after .bx-ph { left: 76%; }
+            .bx-ph svg { width: 30px; height: 30px; }
+            .bx-divider { position: absolute; inset: 0; background: #fff; clip-path: polygon(calc(52% - 2px) 0, calc(52% + 2px) 0, calc(42% + 2px) 100%, calc(42% - 2px) 100%); pointer-events: none; }
+            .bx-tag { position: absolute; bottom: 14px; background: #101828; color: #fff; font-size: 13px; font-weight: 600; line-height: 1.4; padding: 5px 12px; border-radius: 6px; pointer-events: none; }
+            .bx-tag--before { left: 14px; }
+            .bx-tag--after { right: 14px; }
+            .bx-body { padding: 20px; }
+            .bx-band h3.bx-treatment { font-family: inherit; margin: 0; padding: 0; line-height: 1.4; font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #00507A; }
+            .bx-duration { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 15px; color: #4D4C4C; }
+            .bx-duration span { color: #8E98A8; }
+            .bx-note { font-size: 12.5px; line-height: 1.55; color: #8E98A8; margin: 16px 0 0; max-width: 80ch; }
+            @media (max-width: 992px) {
+                .bx-head { gap: 16px; }
+                .bx-media { height: 220px; }
+            }
+            @media (max-width: 576px) {
+                .bx-band { padding: 24px 0 28px; }
+                .bx-band h2.bx-title { font-size: 22px; }
+                .bx-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; margin-top: 20px; }
+                .bx-media { height: 210px; }
+                .bx-stat { width: 100%; padding: 12px 16px; }
+                .bx-stat-text { max-width: none; }
+            }
+        </style>
+        <section class="bx-band" id="results" aria-labelledby="bx-title">
+            <div class="container mb-0">
+                <div class="bx-head">
+                    <div>
+                        <div class="bx-eyebrow">Real patients, real skin</div>
+                        <h2 class="bx-title" id="bx-title">Results from dermatologists on Marham</h2>
+                    </div>
+                    <div class="bx-stat">
+                        <span class="bx-stat-icon" aria-hidden="true">&#10022;</span>
+                        <span class="bx-stat-text">20,000+ skin consultations completed</span>
+                    </div>
+                </div>
+                <div class="bx-grid">
+                    <article class="bx-card">
+                        <div class="bx-media">
+                            <div class="bx-before"><span class="bx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Before photo</span></div>
+                            <div class="bx-after"><span class="bx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>After photo</span></div>
+                            <div class="bx-divider"></div>
+                            <div class="bx-tag bx-tag--before">Before</div>
+                            <div class="bx-tag bx-tag--after">After 6 months</div>
+                        </div>
+                        <div class="bx-body">
+                            <h3 class="bx-treatment">Acne &amp; acne scars</h3>
+                            <div class="bx-duration"><span aria-hidden="true">&#9719;</span>6 months &middot; 4 follow-ups</div>
+                        </div>
+                    </article>
+                    <article class="bx-card">
+                        <div class="bx-media">
+                            <div class="bx-before"><span class="bx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Before photo</span></div>
+                            <div class="bx-after"><span class="bx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>After photo</span></div>
+                            <div class="bx-divider"></div>
+                            <div class="bx-tag bx-tag--before">Before</div>
+                            <div class="bx-tag bx-tag--after">After 4 months</div>
+                        </div>
+                        <div class="bx-body">
+                            <h3 class="bx-treatment">Melasma &amp; pigmentation</h3>
+                            <div class="bx-duration"><span aria-hidden="true">&#9719;</span>4 months &middot; 3 follow-ups</div>
+                        </div>
+                    </article>
+                    <article class="bx-card">
+                        <div class="bx-media">
+                            <div class="bx-before"><span class="bx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Before photo</span></div>
+                            <div class="bx-after"><span class="bx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>After photo</span></div>
+                            <div class="bx-divider"></div>
+                            <div class="bx-tag bx-tag--before">Before</div>
+                            <div class="bx-tag bx-tag--after">After 8 months</div>
+                        </div>
+                        <div class="bx-body">
+                            <h3 class="bx-treatment">Hair fall treatment</h3>
+                            <div class="bx-duration"><span aria-hidden="true">&#9719;</span>8 months &middot; 5 follow-ups</div>
+                        </div>
+                    </article>
+                </div>
+                <p class="bx-note">Photos shared by patients with their consent. Results depend on your skin, the condition and how closely the treatment plan is followed &mdash; your dermatologist will tell you what to expect.</p>
+            </div>
+        </section>
 
 <div class="container" id="banner" style="background-color: skyblue;text-align: center;color:rgb(34, 102, 129); padding: 4px 0; display:none;"></div>
 

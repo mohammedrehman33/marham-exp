@@ -5122,7 +5122,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                 </div>
             </div>
         </section>
-        <!--before/after results (photos pending: drop an <img> into .bx-before / .bx-after)-->
+        <!--before/after results (photos pending: add <img alt="..."> inside .bx-before / .bx-after; it covers the placeholder)-->
         <style>
             .bx-band { background: #F9FAFB; font-family: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif; padding: 36px 0 40px; }
             .bx-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
@@ -5134,9 +5134,11 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
             .bx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-top: 28px; }
             .bx-card { border: 1px solid #EAEBF0; border-radius: 16px; background: #fff; box-shadow: 0 1px 2px 0 rgba(16,24,40,.05); overflow: hidden; }
             .bx-media { position: relative; height: 248px; background: #DFE3E7; }
-            .bx-before, .bx-after { position: absolute; inset: 0; }
+            .bx-before, .bx-after { position: absolute; inset: 0; isolation: isolate; }
             .bx-after { background: #D5DADF; clip-path: polygon(52% 0, 100% 0, 100% 100%, 42% 100%); }
-            .bx-before img, .bx-after img { width: 100%; height: 100%; object-fit: cover; display: block; }
+            .bx-before img, .bx-after img { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block; }
+            .bx-before:has(img) > .bx-ph, .bx-after:has(img) > .bx-ph { display: none; }
+            .bx-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
             .bx-ph { position: absolute; top: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: #7C8894; font-size: 14px; font-weight: 500; white-space: nowrap; }
             .bx-before .bx-ph { left: 23%; }
             .bx-after .bx-ph { left: 76%; }
@@ -5149,10 +5151,14 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
             .bx-band h3.bx-treatment { font-family: inherit; margin: 0; padding: 0; line-height: 1.4; font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #00507A; }
             .bx-duration { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 15px; color: #4D4C4C; }
             .bx-duration span { color: #8E98A8; }
-            .bx-note { font-size: 12.5px; line-height: 1.55; color: #8E98A8; margin: 16px 0 0; max-width: 80ch; }
+            .bx-note { font-size: 12.5px; line-height: 1.55; color: #68727D; margin: 16px 0 0; max-width: 80ch; }
             @media (max-width: 992px) {
                 .bx-head { gap: 16px; }
                 .bx-media { height: 220px; }
+            }
+            @media (min-width: 577px) and (max-width: 991.98px) {
+                .bx-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+                .bx-card:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 11px); }
             }
             @media (max-width: 576px) {
                 .bx-band { padding: 24px 0 28px; }
@@ -5178,8 +5184,8 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                 <div class="bx-grid">
                     <article class="bx-card">
                         <div class="bx-media">
-                            <div class="bx-before"><span class="bx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Before photo</span></div>
-                            <div class="bx-after"><span class="bx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>After photo</span></div>
+                            <div class="bx-before"><span class="bx-ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Before photo</span></div>
+                            <div class="bx-after"><span class="bx-ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>After photo</span></div>
                             <div class="bx-divider"></div>
                             <div class="bx-tag bx-tag--before">Before</div>
                             <div class="bx-tag bx-tag--after">After 6 months</div>
@@ -5191,8 +5197,8 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                     </article>
                     <article class="bx-card">
                         <div class="bx-media">
-                            <div class="bx-before"><span class="bx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Before photo</span></div>
-                            <div class="bx-after"><span class="bx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>After photo</span></div>
+                            <div class="bx-before"><span class="bx-ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Before photo</span></div>
+                            <div class="bx-after"><span class="bx-ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>After photo</span></div>
                             <div class="bx-divider"></div>
                             <div class="bx-tag bx-tag--before">Before</div>
                             <div class="bx-tag bx-tag--after">After 4 months</div>
@@ -5204,8 +5210,8 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                     </article>
                     <article class="bx-card">
                         <div class="bx-media">
-                            <div class="bx-before"><span class="bx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Before photo</span></div>
-                            <div class="bx-after"><span class="bx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>After photo</span></div>
+                            <div class="bx-before"><span class="bx-ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Before photo</span></div>
+                            <div class="bx-after"><span class="bx-ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>After photo</span></div>
                             <div class="bx-divider"></div>
                             <div class="bx-tag bx-tag--before">Before</div>
                             <div class="bx-tag bx-tag--after">After 8 months</div>
@@ -5225,6 +5231,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
 <div class="container"></div>
     <!--Doctors-->
     <div class="container bg-white mt-10 pb-10" id="doctor-listing1">
+        <h2 class="bx-sr">Dermatologists in Pakistan</h2>
         <span id="first-list-item-page" class="list-item-page" data-url="https://www.marham.pk/doctors/dermatologist"></span>
                     <!-- This Id is used to track impressions -->
 <span class="doctor-impression-id" data-doctor-id="9226"></span>

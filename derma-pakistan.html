@@ -5191,6 +5191,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
             .bx-before .bx-ph { left: 23%; }
             .bx-after .bx-ph { left: 76%; }
             .bx-ph svg { width: 30px; height: 30px; }
+            .bx-single { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
             .bx-divider { position: absolute; inset: 0; background: #fff; clip-path: polygon(calc(52% - 2px) 0, calc(52% + 2px) 0, calc(42% + 2px) 100%, calc(42% - 2px) 100%); pointer-events: none; }
             .bx-tag { position: absolute; bottom: 14px; background: #101828; color: #fff; font-size: 13px; font-weight: 600; line-height: 1.4; padding: 5px 12px; border-radius: 6px; pointer-events: none; }
             .bx-tag--before { left: 14px; }
@@ -5232,9 +5233,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                 <div class="bx-grid">
                     <article class="bx-card">
                         <div class="bx-media">
-                            <div class="bx-before"><span class="bx-ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Before photo</span></div>
-                            <div class="bx-after"><span class="bx-ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>After photo</span></div>
-                            <div class="bx-divider"></div>
+                            <img class="bx-single" src="images/derma/acne-before-after.webp" alt="Acne scars before and after treatment" width="544" height="364" loading="lazy">
                             <div class="bx-tag bx-tag--before">Before</div>
                             <div class="bx-tag bx-tag--after">After 6 months</div>
                         </div>

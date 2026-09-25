@@ -9210,6 +9210,22 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
         </div>
     </div>
     
+    <!--second "See all" entry point above About Dermatologist; same behaviour as the link under the concern tiles-->
+    <div class="container sa2-wrap" style="text-align:center;padding:24px 16px 8px">
+        <a href="https://www.marham.pk/doctors/dermatologist?page=2" id="cz-see-all-2" class="sa2-btn">See all 1,165 dermatologists &rarr;</a>
+    </div>
+    <style>
+        a.sa2-btn { display: inline-flex; align-items: center; gap: 6px; font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 700; color: #fff; background: #00507A; border-radius: 999px; padding: 12px 24px; text-decoration: none; box-shadow: 0 6px 16px rgba(0, 80, 122, .18); transition: background 150ms ease; }
+        a.sa2-btn:hover { background: #003E5A; color: #fff; text-decoration: none; }
+        @media (max-width: 576px) { a.sa2-btn { font-size: 14px; padding: 11px 20px; } }
+    </style>
+    <script>
+        document.getElementById('cz-see-all-2').addEventListener('click', function (e) {
+            var main = document.getElementById('cz-see-all');
+            if (!main) return;
+            e.preventDefault(); main.click();
+        });
+    </script>
       	<div class="container bg-white mt-10 pb-10">
   		<div class="row justify-content-center">
   			<div class="col-12">

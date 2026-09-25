@@ -9297,6 +9297,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
     <style>
         a.sa2-btn { display: inline-flex; align-items: center; gap: 6px; font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 700; color: #fff; background: #00507A; border-radius: 999px; padding: 12px 24px; text-decoration: none; box-shadow: 0 6px 16px rgba(0, 80, 122, .18); transition: background 150ms ease; }
         a.sa2-btn:hover { background: #003E5A; color: #fff; text-decoration: none; }
+        body.dl-open .sa2-wrap { display: none; } /* once the listing is open, Load More is the only button here */
         @media (max-width: 576px) { a.sa2-btn { font-size: 14px; padding: 11px 20px; } }
     </style>
     <script>

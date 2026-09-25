@@ -4949,7 +4949,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                 </a>
             </div>
         </section>
-        <!--concern panel: opens above Meet the Experts when a skin-concern tile is clicked; title and 3 doctors follow the selected tile (cards are cloned from the experts carousel)-->
+        <!--concern panel: opens above Meet the Experts when a skin-concern tile is clicked; shows 3 doctors whose areas of interest list that concern (cards cloned from the experts carousel or the extra-cards template)-->
         <style>
             .cx-band[hidden] { display: none !important; }
             .cxa-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
@@ -4974,6 +4974,117 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                 </div>
                 <p class="cxa-sub"></p>
                 <div class="cx-scroller"></div>
+                <template id="concern-extra-cards">
+                <article class="cx-card">
+                    <div class="cx-top">
+                        <a href="https://www.marham.pk/online-consultation/dermatologist/peshawar/dr-shamyla-shah-37314" class="cx-avatar" tabindex="-1" aria-hidden="true">
+                            <span class="cx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Dr.</span></span>
+                            <img src="https://staticconnect-new.marham.pk/assets/doctors/37314/dr-shamyla-shah-dermatologist-peshawar-92_170X170.webp" alt="" width="78" height="78" loading="lazy" onerror="this.remove()">
+                        </a>
+                        <div class="cx-info">
+                            <a href="https://www.marham.pk/online-consultation/dermatologist/peshawar/dr-shamyla-shah-37314" class="cx-name">Dr. Shamyla Shah</a>
+                            <div class="cx-spec">Dermatologist</div>
+                            <div class="cx-spec">Peshawar</div>
+                            <div class="cx-meta">10 Yrs experience &nbsp;&middot;&nbsp; 220 reviews</div>
+                        </div>
+                    </div>
+                    <div class="cx-row">
+                        <span class="cx-pill">98% satisfaction</span>
+                        <span class="cx-fee">Fee from Rs. 3,000</span>
+                    </div>
+                    <div class="cx-actions">
+                        <a href="https://www.marham.pk/online-consultation/dermatologist/peshawar/dr-shamyla-shah-37314/callcenter" class="cx-btn cx-btn--primary">Book Appointment</a>
+                        <a href="https://www.marham.pk/online-consultation/request?id=67&amp;d_id=37314" class="cx-btn cx-btn--video">Book Video Call</a>
+                    </div>
+                </article>
+                <article class="cx-card">
+                    <div class="cx-top">
+                        <a href="https://www.marham.pk/doctors/lahore/dermatologist/dr-abdul-rehman" class="cx-avatar" tabindex="-1" aria-hidden="true">
+                            <span class="cx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Dr.</span></span>
+                            <img src="https://staticconnect-new.marham.pk/assets/doctors/72892/dr-abdul-rehman-dermatologist-lahore-76_170X170.webp" alt="" width="78" height="78" loading="lazy" onerror="this.remove()">
+                        </a>
+                        <div class="cx-info">
+                            <a href="https://www.marham.pk/doctors/lahore/dermatologist/dr-abdul-rehman" class="cx-name">Dr. Abdul Rehman</a>
+                            <div class="cx-spec">Dermatologist</div>
+                            <div class="cx-spec">Lahore</div>
+                            <div class="cx-meta">5 Yrs experience &nbsp;&middot;&nbsp; 18 reviews</div>
+                        </div>
+                    </div>
+                    <div class="cx-row">
+                        <span class="cx-pill">100% satisfaction</span>
+                        <span class="cx-fee">Fee from Rs. 1,200</span>
+                    </div>
+                    <div class="cx-actions">
+                        <a href="https://www.marham.pk/doctors/lahore/dermatologist/dr-abdul-rehman/callcenter" class="cx-btn cx-btn--primary">Book Appointment</a>
+                        <a href="https://www.marham.pk/online-consultation/request?id=67&amp;d_id=72892" class="cx-btn cx-btn--video">Book Video Call</a>
+                    </div>
+                </article>
+                <article class="cx-card">
+                    <div class="cx-top">
+                        <a href="https://www.marham.pk/online-consultation/dermatologist/karachi/dr-sabah-faisal-67041" class="cx-avatar" tabindex="-1" aria-hidden="true">
+                            <span class="cx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Dr.</span></span>
+                            <img src="https://staticconnect-new.marham.pk/assets/doctors/67041/dr-sabah-faisal-dermatologist-karachi-71_170X170.webp" alt="" width="78" height="78" loading="lazy" onerror="this.remove()">
+                        </a>
+                        <div class="cx-info">
+                            <a href="https://www.marham.pk/online-consultation/dermatologist/karachi/dr-sabah-faisal-67041" class="cx-name">Dr. Sabah Faisal</a>
+                            <div class="cx-spec">Dermatologist</div>
+                            <div class="cx-spec">Karachi</div>
+                            <div class="cx-meta">5 Yrs experience &nbsp;&middot;&nbsp; 132 reviews</div>
+                        </div>
+                    </div>
+                    <div class="cx-row">
+                        <span class="cx-pill">98% satisfaction</span>
+                        <span class="cx-fee">Fee from Rs. 500</span>
+                    </div>
+                    <div class="cx-actions">
+                        <a href="https://www.marham.pk/online-consultation/dermatologist/karachi/dr-sabah-faisal-67041/callcenter" class="cx-btn cx-btn--primary">Book Appointment</a>
+                        <a href="https://www.marham.pk/online-consultation/request?id=67&amp;d_id=67041" class="cx-btn cx-btn--video">Book Video Call</a>
+                    </div>
+                </article>
+                <article class="cx-card">
+                    <div class="cx-top">
+                        <a href="https://www.marham.pk/doctors/lahore/dermatologist/dr-marrium-manzoor" class="cx-avatar" tabindex="-1" aria-hidden="true">
+                            <span class="cx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Dr.</span></span>
+                            <img src="https://staticconnect-new.marham.pk/assets/doctors/18521/marrium-manzoor-dermatologist-lahore-36_170X170.webp" alt="" width="78" height="78" loading="lazy" onerror="this.remove()">
+                        </a>
+                        <div class="cx-info">
+                            <a href="https://www.marham.pk/doctors/lahore/dermatologist/dr-marrium-manzoor" class="cx-name">Dr. Marrium Manzoor</a>
+                            <div class="cx-spec">Dermatologist</div>
+                            <div class="cx-spec">Lahore</div>
+                            <div class="cx-meta">7 Yrs experience &nbsp;&middot;&nbsp; 89 reviews</div>
+                        </div>
+                    </div>
+                    <div class="cx-row">
+                        <span class="cx-pill">97% satisfaction</span>
+                        <span class="cx-fee">Fee from Rs. 2,000</span>
+                    </div>
+                    <div class="cx-actions">
+                        <a href="https://www.marham.pk/doctors/lahore/dermatologist/dr-marrium-manzoor/callcenter" class="cx-btn cx-btn--primary">Book Appointment</a>
+                    </div>
+                </article>
+                <article class="cx-card">
+                    <div class="cx-top">
+                        <a href="https://www.marham.pk/doctors/quetta/dermatologist/dr-faiza-gul" class="cx-avatar" tabindex="-1" aria-hidden="true">
+                            <span class="cx-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Dr.</span></span>
+                            <img src="https://staticconnect-new.marham.pk/assets/doctors/36536/dr-faiza-gul-dermatologist-quetta-57_170X170.webp" alt="" width="78" height="78" loading="lazy" onerror="this.remove()">
+                        </a>
+                        <div class="cx-info">
+                            <a href="https://www.marham.pk/doctors/quetta/dermatologist/dr-faiza-gul" class="cx-name">Dr. Faiza Gul</a>
+                            <div class="cx-spec">Dermatologist</div>
+                            <div class="cx-spec">Quetta</div>
+                            <div class="cx-meta">5 Yrs experience &nbsp;&middot;&nbsp; 226 reviews</div>
+                        </div>
+                    </div>
+                    <div class="cx-row">
+                        <span class="cx-pill">98% satisfaction</span>
+                        <span class="cx-fee">Fee from Rs. 1,500</span>
+                    </div>
+                    <div class="cx-actions">
+                        <a href="https://www.marham.pk/doctors/quetta/dermatologist/dr-faiza-gul/callcenter" class="cx-btn cx-btn--primary">Book Appointment</a>
+                        <a href="https://www.marham.pk/online-consultation/request?id=67&amp;d_id=36536" class="cx-btn cx-btn--video">Book Video Call</a>
+                    </div>
+                </article>
+                </template>
             </div>
         </section>
         <!--experts carousel: the 8 Top Booked doctors of the listing below-->
@@ -5214,7 +5325,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
         </section>
         <script>
             (function () {
-                var DATA = {"acne": {"t": "Acne & acne scars", "d": ["Dr. Zafar Ahmed", "Dr. Shamail Zia", "Dr. Malik Aftab Afzal"]}, "hair-fall": {"t": "hair fall & alopecia", "d": ["Dr. Zafar Ahmed", "Dr. Shamail Zia", "Dr. Farah Khurram"]}, "eczema": {"t": "eczema & dermatitis", "d": ["Dr. Asher Brigadier (R) Asher Ahmed Mashhood", "Dr. Zafar Ahmed", "Dr. Shamail Zia"]}, "warts-moles": {"t": "warts & mole removal", "d": ["Dr. Zafar Ahmed", "Dr. Shamail Zia", "Dr. Muhammad Amjad"]}, "anti-ageing": {"t": "anti-ageing & wrinkles", "d": ["Dr. Zafar Ahmed", "Dr. Shamail Zia", "Dr. Asher Brigadier (R) Asher Ahmed Mashhood"]}, "laser-hair-removal": {"t": "laser hair removal", "d": ["Dr. Shamail Zia", "Dr. Malik Aftab Afzal", "Dr. Sadaf Mushtaq"]}};
+                var DATA = {"acne": {"t": "Acne & acne scars", "d": ["Dr. Zafar Ahmed", "Dr. Shamail Zia", "Dr. Malik Aftab Afzal"]}, "hair-fall": {"t": "hair fall & alopecia", "d": ["Dr. Zafar Ahmed", "Dr. Shamail Zia", "Dr. Farah Khurram"]}, "eczema": {"t": "eczema & dermatitis", "d": ["Dr. Shamyla Shah", "Dr. Abdul Rehman", "Dr. Sabah Faisal"]}, "warts-moles": {"t": "warts & mole removal", "d": ["Dr. Zafar Ahmed", "Dr. Marrium Manzoor", "Dr. Faiza Gul"]}, "anti-ageing": {"t": "anti-ageing & wrinkles", "d": ["Dr. Zafar Ahmed", "Dr. Shamail Zia", "Dr. Asher Brigadier (R) Asher Ahmed Mashhood"]}, "laser-hair-removal": {"t": "laser hair removal", "d": ["Dr. Shamail Zia", "Dr. Malik Aftab Afzal", "Dr. Sadaf Mushtaq"]}};
                 var panel = document.getElementById('concern-panel'), experts = document.getElementById('experts');
                 if (!panel || !experts) return;
                 var title = panel.querySelector('#cxa-title'), sub = panel.querySelector('.cxa-sub'), list = panel.querySelector('.cx-scroller');
@@ -5222,6 +5333,8 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                 function cardFor(name) {
                     var names = experts.querySelectorAll('.cx-name');
                     for (var i = 0; i < names.length; i++) if (names[i].textContent.trim() === name) return names[i].closest('.cx-card').cloneNode(true);
+                    var extra = document.getElementById('concern-extra-cards');
+                    if (extra) { var more = extra.content.querySelectorAll('.cx-name'); for (var j = 0; j < more.length; j++) if (more[j].textContent.trim() === name) return more[j].closest('.cx-card').cloneNode(true); }
                     return null;
                 }
                 function setActive(tile) {
@@ -5234,7 +5347,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                     tile.addEventListener('click', function (e) {
                         e.preventDefault();
                         title.textContent = 'Top dermatologists for ' + d.t.charAt(0).toLowerCase() + d.t.slice(1);
-                        sub.textContent = 'Top Booked dermatologists for ' + d.t.charAt(0).toLowerCase() + d.t.slice(1) + '.';
+                        sub.textContent = 'Dermatologists on Marham who treat ' + d.t.charAt(0).toLowerCase() + d.t.slice(1) + '.';
                         list.innerHTML = '';
                         d.d.forEach(function (n) { var c = cardFor(n); if (c) list.appendChild(c); });
                         setActive(tile); panel.hidden = false; spot(true);

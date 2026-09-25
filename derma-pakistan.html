@@ -4896,7 +4896,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                     <h2 class="cz-title" id="cz-title">What's bothering your skin?</h2>
                     <p class="cz-sub">Tap a concern to see only the dermatologists in Pakistan who treat it.</p>
                 </div>
-                <a href="#doctor-listing1" class="cz-all">See all 1,165 dermatologists &rarr;</a>
+                <a href="https://www.marham.pk/doctors/dermatologist?page=2" class="cz-all" id="cz-see-all">See all 1,165 dermatologists &rarr;</a>
             </div>
             <div class="cz-grid">
                 <a href="https://www.marham.pk/diseases/acne/pakistan" class="cz-card" data-concern="acne">
@@ -4949,6 +4949,38 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                 </a>
             </div>
         </section>
+        <script>
+            // "See all" appends the doctors of /doctors/dermatologist?page=2 (their row shadow-card blocks) to the end of the listing below and scrolls to them.
+            (function () {
+                var link = document.getElementById('cz-see-all'), loaded = false, busy = false;
+                if (!link) return;
+                link.addEventListener('click', function (e) {
+                    var lists = document.querySelectorAll('[id^="doctor-listing"]'), list = lists[lists.length - 1];
+                    if (!list) return;
+                    e.preventDefault();
+                    if (loaded) { list.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+                    if (busy) return;
+                    busy = true;
+                    fetch(link.href, { credentials: 'same-origin' })
+                        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+                        .then(function (htmlText) {
+                            var doc = new DOMParser().parseFromString(htmlText, 'text/html');
+                            var cards = doc.querySelectorAll('[id^="doctor-listing"] > .doctor-impression-id, [id^="doctor-listing"] > .row.shadow-card');
+                            if (!cards.length) throw new Error('no doctors on page 2');
+                            var marker = document.createElement('span');
+                            marker.className = 'list-item-page'; marker.setAttribute('data-url', link.href);
+                            list.appendChild(marker);
+                            var first = null;
+                            cards.forEach(function (n) { var c = list.appendChild(document.importNode(n, true)); if (!first && c.classList.contains('shadow-card')) first = c; });
+                            if (first) first.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            loaded = true;
+                            if (typeof page === 'number' && page < 2) { page = 2; }
+                        })
+                        .catch(function () { window.location.href = link.href; })
+                        .then(function () { busy = false; });
+                });
+            })();
+        </script>
         <!--concern panel: opens above Meet the Experts when a skin-concern tile is clicked; shows 3 doctors whose areas of interest list that concern, none of them repeated from the Meet the Experts carousel (cards from the extra-cards template)-->
         <style>
             .cx-band[hidden] { display: none !important; }

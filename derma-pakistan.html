@@ -4872,6 +4872,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
             .cz-card { display: block; text-align: center; text-decoration: none; transition: transform 140ms ease; }
             .cz-card:hover { transform: translateY(-4px); text-decoration: none; }
             .cz-card { cursor: pointer; }
+            body:not(.dl-open) #doctor-listing1, body:not(.dl-open) #doctor-listing2, body:not(.dl-open) .dl-loadmore { display: none !important; }
             .cz-card:hover .cz-tile, .cz-card:focus-visible .cz-tile { box-shadow: 0 0 0 2px #00507A, 0 8px 18px rgba(0, 80, 122, .14); }
             .cz-cta { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; font-size: 12.5px; font-weight: 700; color: #00507A; background: #E6EDF1; border-radius: 999px; padding: 4px 10px; transition: background 150ms ease; }
             .cz-card:hover .cz-cta { background: #00507A; color: #fff; }
@@ -6530,7 +6531,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
 </div>
         </template>
         <script>
-            // "See all": scroll down to the doctor listing (row shadow-card) and fill it with the doctors of /doctors/dermatologist?page=2.
+            // "See all": reveal the doctor listing (hidden until now), scroll down to it (row shadow-card) and fill it with the doctors of /doctors/dermatologist?page=2.
             (function () {
                 var link = document.getElementById('cz-see-all'), state = 'idle';
                 if (!link) return;
@@ -6553,6 +6554,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                     scrollToFirst();
                 }
                 link.addEventListener('click', function (e) {
+                    document.body.classList.add('dl-open');
                     var box = lists();
                     if (!box.length) return;
                     e.preventDefault();
@@ -9206,7 +9208,7 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
 
         
     </div>
-        <div class="container bg-white mt-10 pb-10">
+        <div class="container bg-white mt-10 pb-10 dl-loadmore">
         <div class="row justify-content-center">
             <a href="/" class="button col-6 col-md-3 text-center button-light-round loadMore" id="loadMore" style="line-height: 0.4rem;" name="Load More Doctors">
                 Load More

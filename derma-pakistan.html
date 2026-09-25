@@ -10457,10 +10457,41 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
     </div>
         <div class="container bg-white mt-10 pb-10">
         <div class="row justify-content-center">
-            <a href="/" class="button col-6 col-md-3 text-center button-light-round loadMore" id="loadMore" style="line-height: 0.4rem;" name="Load More Doctors">
+            <a href="https://www.marham.pk/doctors/dermatologist?page=2" class="button col-6 col-md-3 text-center button-light-round loadMore" id="loadMore" style="line-height: 0.4rem;" name="Load More Doctors">
                 Load More
             </a>
         </div>
+        <p class="lm-note" style="display:none;text-align:center;font-size:13px;color:#68727D;margin:10px 0 0"></p>
+        <script>
+            // Load More: append the doctors of the next /doctors/dermatologist?page=N (page 2 after page 1, page 3 after "See all", and so on).
+            document.addEventListener('click', function (e) {
+                var btn = e.target.closest && e.target.closest('#loadMore');
+                if (!btn) return;
+                e.preventDefault(); e.stopImmediatePropagation();
+                if (btn.dataset.busy) return;
+                var cur = (typeof page === 'number' && page > 0) ? page : 1;
+                var next = cur + 1, href = 'https://www.marham.pk/doctors/dermatologist?page=' + next;
+                var note = btn.closest('.container').querySelector('.lm-note') || document.querySelector('.lm-note');
+                var label = btn.textContent; btn.dataset.busy = '1'; btn.textContent = 'Loading\u2026';
+                fetch(href, { credentials: 'same-origin' })
+                    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+                    .then(function (htmlText) {
+                        var doc = new DOMParser().parseFromString(htmlText, 'text/html');
+                        var cards = doc.querySelectorAll('[id^="doctor-listing"] > .doctor-impression-id, [id^="doctor-listing"] > .row.shadow-card');
+                        if (!cards.length) { btn.style.display = 'none'; return; }
+                        var lists = document.querySelectorAll('[id^="doctor-listing"]'), list = lists[lists.length - 1], first = null;
+                        var marker = document.createElement('span'); marker.className = 'list-item-page'; marker.setAttribute('data-url', href); list.appendChild(marker);
+                        cards.forEach(function (n) { var c = list.appendChild(document.importNode(n, true)); if (!first && c.classList.contains('shadow-card')) first = c; });
+                        page = next; btn.href = 'https://www.marham.pk/doctors/dermatologist?page=' + (next + 1);
+                        if (note) note.style.display = 'none';
+                        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    })
+                    .catch(function () {
+                        if (note) { note.innerHTML = 'Could not load more doctors here. <a href="' + href + '" style="color:#00507A;font-weight:700">Open page ' + next + ' &rarr;</a>'; note.style.display = 'block'; }
+                    })
+                    .then(function () { delete btn.dataset.busy; btn.textContent = label; });
+            }, true);
+        </script>
     </div>
     
       	<div class="container bg-white mt-10 pb-10">

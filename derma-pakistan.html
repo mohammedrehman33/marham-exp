@@ -6999,6 +6999,16 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
             .cx-scroller::-webkit-scrollbar-thumb { background: #D5DAE1; border-radius: 999px; }
             .cx-scroller::-webkit-scrollbar-thumb:hover { background: #B8C0CC; }
             .cx-scroller::-webkit-scrollbar-button { display: none; }
+            .cx-dots, .cx-hint { display: none; }
+            @media (max-width: 768px) {
+                .cx-scroller { -webkit-mask-image: linear-gradient(to right, #000 86%, transparent); mask-image: linear-gradient(to right, #000 86%, transparent); }
+                .cx-scroller.is-end { -webkit-mask-image: none; mask-image: none; }
+                .cx-dots { display: flex; justify-content: center; align-items: center; gap: 6px; margin-top: 2px; }
+                .cx-dot { width: 7px; height: 7px; border-radius: 999px; background: #D0D5DD; transition: width 200ms ease, background 200ms ease; }
+                .cx-dot.is-on { width: 20px; background: #00507A; }
+                .cx-hint { display: block; text-align: center; font-size: 12.5px; font-weight: 600; color: #68727D; margin-top: 8px; transition: opacity 250ms ease; }
+                .cx-hint.is-gone { opacity: 0; height: 0; margin: 0; overflow: hidden; }
+            }
             .cx-card { flex: none; width: 392px; scroll-snap-align: start; display: flex; flex-direction: column; border: 1px solid #EAEBF0; border-radius: 16px; background: #fff; box-shadow: 0 1px 2px 0 rgba(16,24,40,.05); padding: 22px; }
             .cx-top { display: flex; gap: 16px; align-items: flex-start; }
             .cx-avatar { position: relative; width: 78px; height: 78px; border-radius: 50%; overflow: hidden; flex: none; background: #E4E7EB; }
@@ -7268,6 +7278,38 @@ window.onpageshow=function(o){o.persisted&&(document.getElementById("loader").st
                 panel.querySelector('.cxa-close').addEventListener('click', closePanel);
                 backdrop.addEventListener('click', closePanel);
                 document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePanel(); });
+            })();
+        </script>
+        <script>
+            // Mobile scroll indicator for the doctor carousels: one dot per card, active dot follows the scroll, swipe hint until first scroll.
+            (function () {
+                function setup(sc) {
+                    if (sc.dataset.dots) return; sc.dataset.dots = '1';
+                    var dots = document.createElement('div'); dots.className = 'cx-dots'; dots.setAttribute('aria-hidden', 'true');
+                    var hint = document.createElement('div'); hint.className = 'cx-hint'; hint.textContent = 'Swipe for more doctors \u2192';
+                    sc.parentNode.insertBefore(dots, sc.nextSibling); dots.parentNode.insertBefore(hint, dots.nextSibling);
+                    function build() {
+                        var n = sc.querySelectorAll('.cx-card').length;
+                        dots.innerHTML = '';
+                        for (var i = 0; i < n; i++) { var d = document.createElement('span'); d.className = 'cx-dot'; dots.appendChild(d); }
+                        dots.style.visibility = n > 1 ? '' : 'hidden'; hint.style.visibility = n > 1 ? '' : 'hidden';
+                        sc.scrollLeft = 0; update();
+                    }
+                    function update() {
+                        var cards = sc.querySelectorAll('.cx-card'), all = dots.children;
+                        if (!cards.length) return;
+                        var step = cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : cards[0].offsetWidth;
+                        var end = sc.scrollLeft + sc.clientWidth >= sc.scrollWidth - 4;
+                        var idx = end ? cards.length - 1 : Math.round(sc.scrollLeft / Math.max(step, 1));
+                        for (var i = 0; i < all.length; i++) all[i].classList.toggle('is-on', i === idx);
+                        sc.classList.toggle('is-end', end);
+                    }
+                    sc.addEventListener('scroll', function () { update(); if (sc.scrollLeft > 10) hint.classList.add('is-gone'); }, { passive: true });
+                    window.addEventListener('resize', update);
+                    new MutationObserver(build).observe(sc, { childList: true });
+                    build();
+                }
+                document.querySelectorAll('.cx-band .cx-scroller').forEach(setup);
             })();
         </script>
         <!--before/after results (photos pending: add <img alt="..."> inside .bx-before / .bx-after; it covers the placeholder)-->

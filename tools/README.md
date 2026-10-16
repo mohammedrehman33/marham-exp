@@ -11,6 +11,7 @@ Marham disease/listing page.
 | General | `tools/apply_general.py` | `tools/doctors_general.json` (Waqas / Salman / Usama) |
 | Gyne    | `tools/apply_gyne.py`    | `tools/doctors_gyne.json` (gyne doctors) |
 | Psychologist | `tools/apply_psychologist.py` | `tools/doctors_psychologist.json` (psychology doctors) |
+| Karachi GP | `tools/apply_gp_karachi.py` | `tools/doctors_gp_karachi.json` (Saba / Zahid / Akhtar) |
 
 All are thin wrappers over the shared engine `tools/inject_cmd_section.py`,
 so changing one flow never affects the others. To add a new specialty flow,

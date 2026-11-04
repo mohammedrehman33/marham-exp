@@ -1,0 +1,30 @@
+{
+  "doctor_id": "6955",
+  "name": "Dr. Imran Zia",
+  "top_booked": true,
+  "pmdc": true,
+  "specialty_line": "Dentist &middot; BDS (Pb), RDS, C-Implants (Korea)",
+  "photo": "https://staticconnect-new.marham.pk/assets/doctors/6955/dr-imran-zia-dentist-lahore-61_170X170.webp",
+  "profile": "https://www.marham.pk/doctors/lahore/dentist/dr-imran-zia",
+  "reviews": "474",
+  "exp": "27",
+  "satisfaction": "96",
+  "chips": ["Tooth Filling", "Root Canal Treatment", "Fixed Braces", "Crowns Bridges Pulpotomy"],
+  "video": {
+    "fee": "Rs. 1,000",
+    "old_fee": "Rs. 1,100",
+    "save": "Save 10%",
+    "note": "Limited time offer on video consultations",
+    "cta": "Book Video Call",
+    "url": "https://www.marham.pk/online-consultation/request?id=98&d_id=6955"
+  },
+  "clinic": {
+    "name": "Mid City Hospital, Jail Road, Lahore",
+    "fee": "Rs. 1,000",
+    "cta": "Book Appointment",
+    "url": "https://www.marham.pk/doctors/lahore/dentist/dr-imran-zia/callcenter?h_id=8"
+  },
+  "review_quote": "…his humbleness and kind behaviour made me to appreciate him on every platform. I recommend him highly without any hesitation.",
+  "reviews_url": "https://www.marham.pk/doctors/lahore/dentist/dr-imran-zia/reviews?utm_source=braces_lahore_page&utm_medium=review_snippet&utm_campaign=social_proof",
+  "footer_note": "Free cancellation &middot; Confirmed booking"
+}

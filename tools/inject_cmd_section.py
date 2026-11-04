@@ -27,25 +27,27 @@ CMD_END   = "<!-- CMD_SECTION_END -->"
 STYLE = '''			<style>
 			/* callMyDoctors - affordable-specialists cards. */
 			#callMyDoctors .cmd-affordable{ background:#ffffff; border:1px solid #E7EAEE; border-radius:16px; padding:24px; box-shadow:5px 5px 16px 5px rgba(0,0,0,0.1); }
-			#callMyDoctors .cmd-title{ margin:0; font-size:22px; font-weight:700; color:#16384a; line-height:1.25; }
-			#callMyDoctors .cmd-sub{ margin:6px 0 20px; font-size:14px; font-weight:500; color:#4a5a68; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-			#callMyDoctors .cmd-fomo{ display:inline-flex; align-items:center; gap:6px; background:#fdecea; color:#d32f2f; font-weight:700; padding:4px 10px; border-radius:6px; font-size:13px; line-height:1.2; }
-			#callMyDoctors .cmd-fomo .bolt{ font-size:14px; }
-			#callMyDoctors .cmd-fomo-note{ color:#4a5a68; font-weight:600; }
+			#callMyDoctors .cmd-title{ margin:0; font-size:22px; font-weight:600; color:#16384a; line-height:1.25; }
+			#callMyDoctors .cmd-sub{ margin:6px 0 20px; font-size:14px; font-weight:400; color:#4a5a68; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+			#callMyDoctors .cmd-fomo{ display:inline-flex; align-items:center; gap:6px; background:#fdecea; color:#d32f2f; font-weight:600; padding:4px 10px; border-radius:6px; font-size:13px; line-height:1.2; position:relative; overflow:hidden; }
+			#callMyDoctors .cmd-fomo .cmd-ico{ width:15px; height:15px; flex-shrink:0; display:inline-block; vertical-align:middle; }
+			#callMyDoctors .cmd-fomo::after{ content:""; position:absolute; top:-20%; bottom:-20%; left:0; width:55%; transform:translateX(-130%) skewX(-18deg); background:linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.35) 30%, rgba(255,255,255,.95) 50%, rgba(255,255,255,.35) 70%, rgba(255,255,255,0) 100%); animation:cmdShimmer 4.5s cubic-bezier(.4,0,.2,1) infinite; pointer-events:none; }
+			@keyframes cmdShimmer{ 0%{ transform:translateX(-130%) skewX(-18deg); } 55%{ transform:translateX(330%) skewX(-18deg); } 100%{ transform:translateX(330%) skewX(-18deg); } }
+			#callMyDoctors .cmd-fomo-note{ color:#4a5a68; font-weight:500; }
 			#callMyDoctors .cmd-grid{ display:flex; gap:16px; overflow-x:auto; padding-bottom:6px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
-			#callMyDoctors .cmd-card{ border:1px solid #E7EAEE; border-radius:12px; padding:16px; background:#fafafa; display:flex; flex-direction:column; flex:0 0 320px; max-width:320px; scroll-snap-align:start; }
+			#callMyDoctors .cmd-card{ border:1px solid #E7EAEE; border-radius:12px; padding:16px; background:#fafafa; display:flex; flex-direction:column; flex:1 1 0; min-width:280px; max-width:none; scroll-snap-align:start; }
 			#callMyDoctors .cmd-top{ display:flex; align-items:center; gap:12px; }
 			#callMyDoctors .cmd-photo{ width:58px !important; height:58px !important; min-width:58px; min-height:58px; max-width:58px; max-height:58px; aspect-ratio:1 / 1; border-radius:50%; object-fit:cover !important; object-position:center; flex-shrink:0; border:2px solid #2BB3A3; padding:2px; background:#fff; box-sizing:border-box; }
 			#callMyDoctors .cmd-name{ margin:0 0 4px; font-size:15px; line-height:1.2; }
-			#callMyDoctors .cmd-name a{ color:#136c8f; text-decoration:none; font-weight:600; }
+			#callMyDoctors .cmd-name a{ color:#136c8f; text-decoration:none; font-weight:500; }
 			#callMyDoctors .cmd-avail{ display:flex; align-items:center; gap:6px; font-size:13px; color:#1aa260; font-weight:500; margin-bottom:4px; }
 			#callMyDoctors .cmd-avail .dot{ width:8px; height:8px; border-radius:50%; background:#1aa260; display:inline-block; flex-shrink:0; }
-			#callMyDoctors .cmd-fee{ font-size:14px; font-weight:700; color:#1b2a3a; }
+			#callMyDoctors .cmd-fee{ font-size:14px; font-weight:600; color:#1b2a3a; }
 			#callMyDoctors .cmd-stats{ display:flex; align-items:center; gap:16px; margin:14px 0; font-size:12px; }
 			#callMyDoctors .cmd-reviews{ color:#b4641d; font-weight:500; display:flex; align-items:center; gap:5px; }
 			#callMyDoctors .cmd-reviews .star{ color:#f5a623; font-size:13px; }
 			#callMyDoctors .cmd-exp{ color:#7a8a99; }
-			#callMyDoctors .cmd-book{ margin-top:auto; display:block; width:100%; background:#084c61; color:#fff; text-align:center; text-decoration:none; font-size:14px; font-weight:600; padding:11px 12px; border-radius:8px; border:1px solid #084c61; line-height:1.2; }
+			#callMyDoctors .cmd-book{ margin-top:auto; display:block; width:100%; background:#084c61; color:#fff; text-align:center; text-decoration:none; font-size:14px; font-weight:500; padding:11px 12px; border-radius:8px; border:1px solid #084c61; line-height:1.2; }
 			#callMyDoctors .cmd-book:hover{ background:#063b4c; color:#fff; }
 			@media (max-width:768px){
 				#callMyDoctors .cmd-affordable{ padding:18px; }
@@ -56,6 +58,21 @@ STYLE = '''			<style>
 '''
 
 def esc(u): return (u or "").replace("&", "&amp;")
+
+def slug_of(name):
+    s = re.sub(r'[^a-z0-9]+', '-', (name or "").lower()).strip('-')
+    return s or "doctor"
+
+def add_utm(url, utm, content=None):
+    """Append GA campaign params (utm_source/medium/campaign...) to a URL,
+    plus a per-doctor utm_content. Respects existing query strings."""
+    if not utm or not url or url == "#":
+        return url
+    params = utm.lstrip("?&")
+    if content and "utm_content=" not in params:
+        params += "&utm_content=" + urllib.parse.quote(content)
+    sep = "&" if "?" in url else "?"
+    return url + sep + params
 
 def avatar(initials):
     svg = ("<svg xmlns='http://www.w3.org/2000/svg' width='58' height='58' viewBox='0 0 58 58'>"
@@ -108,7 +125,7 @@ def extract_doctors(doc):
         docs.append(dict(name=name, profile=profile, photo=photo, reviews=reviews, exp=exp, fee=fee, book=book))
     return docs
 
-def build_section(docs, disease, fomo_note, price=None):
+def build_section(docs, disease, fomo_note, price=None, badge="FLAT 30% OFF on Lab Tests", utm=None):
     # "as Low as Rs. X": X is the LOWEST fee among the cards (or an explicit --price override).
     fees = [(d.get("fee") or 0) for d in docs if (d.get("fee") or 0) > 0]
     head_price = price if price else (min(fees) if fees else 0)
@@ -118,7 +135,8 @@ def build_section(docs, disease, fomo_note, price=None):
             else "Consult a {} Online".format(label)
     cards = ""
     for d in docs:
-        prof, book = esc(d["profile"]), esc(d.get("book") or d["profile"])
+        prof = esc(d["profile"])
+        book = esc(add_utm(d.get("book") or d["profile"], utm, content=slug_of(d["name"])))
         photo = esc(d["photo"]) if d.get("photo") else avatar(initials_of(d["name"]))
         fee = f"Rs. {d['fee']:,}" if d.get("fee") else ""
         rev = f'<span class="cmd-reviews"><span class="star">★</span> {d["reviews"]} Reviews</span>' if d.get("reviews") else ""
@@ -135,7 +153,7 @@ def build_section(docs, disease, fomo_note, price=None):
                f'''			<div class="container mt-10" id="callMyDoctors">
 				<div class="cmd-affordable" id="cmdPanel">
 					<h2 class="cmd-title" id="cmdTitle">{title}</h2>
-					<p class="cmd-sub"><span class="cmd-fomo"><span class="bolt">⚡</span> FLAT 30% OFF on Lab Tests</span> <span class="cmd-fomo-note">{html.escape(fomo_note)}</span></p>
+					<p class="cmd-sub"><span class="cmd-fomo" dir="auto"><svg class="cmd-ico" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg> {html.escape(badge)}</span> <span class="cmd-fomo-note">{html.escape(fomo_note)}</span></p>
 					<div class="cmd-grid" id="cmdGrid">{cards}</div>
 				</div>
 			</div>
@@ -160,6 +178,8 @@ def main():
     ap.add_argument("--count", type=int, default=3)
     ap.add_argument("--anchor", default="<!--Doctors-->")
     ap.add_argument("--fomo", default="Book today — limited-time offer, ends soon!")
+    ap.add_argument("--badge", default="FLAT 30% OFF on Lab Tests", help="red highlight badge text (next to the bolt)")
+    ap.add_argument("--utm", default=None, help='GA campaign params for Book CTAs, e.g. "utm_source=X&utm_medium=Y&utm_campaign=Z"; per-doctor utm_content is added automatically')
     ap.add_argument("--price", type=int, default=None, help="force the heading 'as Low as Rs. X' number; default = lowest card fee")
     a = ap.parse_args()
 
@@ -177,7 +197,7 @@ def main():
     if not docs:
         sys.exit("ERROR: no doctors found/provided. Use --doctors doctors.json")
 
-    section, title = build_section(docs, disease, a.fomo, price=a.price)
+    section, title = build_section(docs, disease, a.fomo, price=a.price, badge=a.badge, utm=a.utm)
     section = section.replace("\n", nl)  # match the page's own line endings
 
     # Idempotent: replace existing section if present.

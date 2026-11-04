@@ -1,5 +1,11 @@
 # Call My Doctors — affordable-specialists section injector
 
+> Also in this folder: `add_listing_filters.py` — replaces a listing page's
+> search bar with working pill-chip filters (Female / Most Experienced /
+> Lowest Fee / Highest Rated / Available Today / Video Consultation),
+> border `#004d71`. Pass female doctor ids via `--female-ids` since gender
+> isn't in the page markup. Byte-preserving + idempotent (MH_FILTERS markers).
+
 Adds the `#callMyDoctors` "Consult a Specialist for as Low as Rs. X" section
 (with the 30% OFF lab-test FOMO subtitle, circular photos, card grid) to any
 Marham disease/listing page.
